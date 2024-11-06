@@ -1,18 +1,18 @@
 const express = require('express');
-const path = require('path');
-
 const router = express.Router();
 
-router.get('/login', function(req, res) {
-    console.log("login");
-    res.render("login", {title: "Connexion"});
+router.get('/', (req, res) => {
+    res.render('login', { title: 'Login' });
 });
 
-router.post('/login', function(req, res) {
-
-    // Utilisateur fake ici
-    // TODO : aller chercher l'utilisateur en base de données à partir du login et du (hash du) mot de passe
-    req.session.user = { firstname : "Jean", lastname : "Dupond"};
-    res.redirect("/home");
+router.post('/', (req, res) => {
+    const { username, password } = req.body;
+    if (username === 'user' && password === 'pass') {
+        req.session.user = { name: username };
+        res.redirect('/home');
+    } else {
+        res.render('login', { title: 'Login', error: 'Invalid credentials' });
+    }
 });
+
 module.exports = router;
