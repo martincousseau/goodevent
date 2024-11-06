@@ -1,4 +1,3 @@
-// auth.js
 function auth(req, res, next) {
     // Vérifie si l'utilisateur est connecté en regardant la session
     if (req.session && req.session.user) {
