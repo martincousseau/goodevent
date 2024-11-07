@@ -21,12 +21,8 @@ async function register(req, res) {
 
 async function login(req, res) {
     const { email, password } = req.body;
-    console.log('login')
-    console.log('email : ', email)
-    console.log('password : ', password)
     try {
         const user = await User.findOne({ email });
-        console.log('user : ', user)
 
         if (!user) {
             return res.render('login', { title: 'Login', error: 'Email ou mot de passe incorrect.' });
@@ -39,7 +35,6 @@ async function login(req, res) {
 
         req.session.user = user;
         
-        console.log('user in authcontroller: ', req.session.user)
         res.redirect('/home');
     } catch (error) {
         console.error("Erreur lors de la tentative de connexion:", error);

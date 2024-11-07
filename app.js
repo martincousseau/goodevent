@@ -19,12 +19,13 @@ const homeRouter = require("./routes/home.js");
 const accountRouter = require("./routes/account.js");
 const loginRouter = require("./routes/login.js");
 const logoutRouter = require("./routes/logout.js");
+const eventRouter = require("./routes/event.js");
+const editEventRouter = require("./routes/edit-event.js");
 
 // middlewares
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(session({
     secret: 'top secret',
     resave: true,
@@ -46,6 +47,8 @@ app.use('/home', homeRouter);
 app.use('/account', accountRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/event', eventRouter);
+app.use('/edit-event', editEventRouter);
 
 // Start server
 app.listen(port, () => {

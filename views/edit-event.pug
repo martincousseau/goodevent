@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  head
+    title= title
+  body
+    main
+      h3 Modifier l'événement: #{event.name}
+      
+      form(method="POST", action=`/edit-event/${event._id}`)
+        label(for="name") Nom de l'événement
+        input(type="text", name="name", value=event.name, required=true)
+
+        label(for="event_date") Date
+        input(type="date", name="event_date", value=event.event_date, required=true)
+
+        label(for="price") Prix
+        input(type="number", name="price", value=event.price, required=true)
+
+        label(for="theme") Thème
+        select(name="theme", required=true)
+          option(value="Music", selected=(event.theme === "Music" ? "selected" : "")) Music
+          option(value="Sports", selected=(event.theme === "Sports" ? "selected" : "")) Sports
+          option(value="Art", selected=(event.theme === "Art" ? "selected" : "")) Art
+
+        button(type="submit") Enregistrer les modifications
