@@ -12,12 +12,15 @@ block content
       ul.navbar-menu
         li
           a(href="/home") Home
-        li
-          a(href="/logout") Logout
+
     
     .user-info
     h1 Bienvenue, #{user.username}
-    p Email : #{user.email} 
+    p Username : #{user.username}
+    p Last Name : #{user.last_name}
+    p First Name : #{user.first_name}
+    p Role : #{user.role}
+    p Birth date : #{user.birth_date}
 
     // Pied de page
     footer

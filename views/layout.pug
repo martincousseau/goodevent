@@ -13,8 +13,11 @@ html(lang='en')
 
                 if user
                     form.form-inline(method='POST' action="/logout")
-                        span.mr-3 #{user.username}
                         button(class="btn btn-primary" type="submit") Déconnexion
+                    form.form-inline(method='POST' action="/account")
+                        button(class="btn btn-primary" type="submit") #{user.username}
+
+                        //-a(type="submit") #{user.username}
 
             h1= title
             block content
