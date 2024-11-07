@@ -1,9 +1,7 @@
-doctype html
-html
-  head
-    title Inscription
+extends layout
+
+block content
   body
-    h1 Inscription
     if error
       p.error= error
 
@@ -11,6 +9,15 @@ html
       div
         label(for="username") Nom d'utilisateur :
         input(type="text" name="username" id="username" required)
+      div
+        label(for="first_name") Prénom :
+        input(type="text" name="first_name" id="first_nam" required)
+      div
+        label(for="last_name") Nom :
+        input(type="text" name="last_name" id="last_name" required)
+      div
+        label(for="birth_date") Date de naissance :
+        input(type="date" name="birth_date" id="birth_date" required)
       div
         label(for="email") Email :
         input(type="email" name="email" id="email" required)

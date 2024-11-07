@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const { getCurrentUser } = require('../controllers/authController');
 
 // Middleware pour vérifier si l'utilisateur est connecté
 router.use((req, res, next) => {
-    console.log('req.session.user',req.session.user)
-    if (!req.session.user) {
+    const user = getCurrentUser(req); 
+    if (!user) {
+        console.log('Pas de user.')
         return res.redirect('/login'); 
     }
     next(); 
@@ -12,8 +14,9 @@ router.use((req, res, next) => {
 
 // Route pour afficher la page d'accueil
 router.get('/', (req, res) => {
+    const user = getCurrentUser(req); 
     console.log('Rendering home page...');
-    res.render('home', { title: 'Home', user: req.session.user });
+    res.render('home', { title: 'Home', user: user });
 });
 
 
