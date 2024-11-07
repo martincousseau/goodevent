@@ -20,6 +20,7 @@ const accountRouter = require("./routes/account.js");
 const loginRouter = require("./routes/login.js");
 const logoutRouter = require("./routes/logout.js");
 const eventRouter = require("./routes/event.js");
+const editEventRouter = require("./routes/edit-event.js");
 
 // middlewares
 app.use(morgan('dev'));
@@ -47,6 +48,7 @@ app.use('/account', accountRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/event', eventRouter);
+app.use('/edit-event', editEventRouter);
 
 // Start server
 app.listen(port, () => {

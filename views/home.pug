@@ -5,6 +5,45 @@ block content
     title= title
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    style.
+      /* Styles for event cards */
+      .event-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .event-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .event-card-header {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #333;
+      }
+      .event-card-details {
+        font-size: 1.1em;
+        color: #555;
+        margin: 10px 0;
+      }
+      .event-card-footer {
+        text-align: right;
+      }
+      .btn {
+        padding: 8px 16px;
+        font-size: 1em;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
   
   body
     main
@@ -12,26 +51,29 @@ block content
       // Filtrage et tri des événements
       form(method="get" action="/home")
         select(name="filter")
-          option(value="") -- Choisissez un thème --
+          option(value="") -- Choisissez un thème -- 
           option(value="Music" selected=(filter === "Music" ? 'selected' : '')) Music
           option(value="Sports" selected=(filter === "Sports" ? 'selected' : '')) Sports
           option(value="Art" selected=(filter === "Art" ? 'selected' : '')) Art
         button(type="submit") Filtrer
 
         select(name="sort")
-          option(value="") -- Trier par --
+          option(value="") -- Trier par -- 
           option(value="date" selected=(sort === "date" ? 'selected' : '')) Date
           option(value="price" selected=(sort === "price" ? 'selected' : '')) Prix
         button(type="submit") Trier
 
       // Liste des événements
       if events && events.length > 0
-        ul
+        div(class="event-list")
           each event in events
-            li
-              h3 #{event.name}
-              p Date : #{event.event_date}
-              p Prix : #{event.price}€
-              p Thème : #{event.theme}
+            div(class="event-card")
+              div(class="event-card-header") #{event.name}
+              div(class="event-card-details")
+                p Date : #{event.event_date}
+                p Prix : #{event.price}€
+                p Thème : #{event.theme}
+              div(class="event-card-footer")
+                a(href=`/edit-event/${event._id}`, class="btn") Modifier
       else
         p Aucune événement disponible pour le moment.
