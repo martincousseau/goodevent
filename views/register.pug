@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title Inscription
+  body
+    h1 Inscription
+    if error
+      p.error= error
+
+    form(action="/auth/register" method="POST")
+      div
+        label(for="username") Nom d'utilisateur :
+        input(type="text" name="username" id="username" required)
+      div
+        label(for="email") Email :
+        input(type="email" name="email" id="email" required)
+      div
+        label(for="password") Mot de passe :
+        input(type="password" name="password" id="password" required)
+      div
+        button(type="submit") S'inscrire
+    p
+      | Déjà un compte ? 
+      a(href="/login") Connectez-vous ici

@@ -1,18 +1,12 @@
 const express = require('express');
-const path = require('path');
-
 const router = express.Router();
+const { login } = require('../controllers/authController');
 
-router.get('/login', function(req, res) {
-    console.log("login");
-    res.render("login", {title: "Connexion"});
+router.get('/', (req, res) => {
+    res.render('login', { title: 'Se connecter' });
 });
 
-router.post('/login', function(req, res) {
+router.post('/', login);
 
-    // Utilisateur fake ici
-    // TODO : aller chercher l'utilisateur en base de données à partir du login et du (hash du) mot de passe
-    req.session.user = { firstname : "Jean", lastname : "Dupond"};
-    res.redirect("/home");
-});
+
 module.exports = router;
