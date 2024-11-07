@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 async function register(req, res) {
-    const { username, email, password } = req.body;
+    const { username, email, password, first_name, last_name, birth_date } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({ username, email, password: hashedPassword });
+        const user = new User({ username, email, password: hashedPassword, first_name, last_name, birth_date });
         await user.save();
         res.redirect('/home');
     } catch (error) {
