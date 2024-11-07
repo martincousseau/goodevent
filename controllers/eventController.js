@@ -16,11 +16,22 @@ async function createEvent(req, res) {
     }
 }
 
-async function getAllEvents() {
+async function getAllEvents(filter, sort) {
+    console.log('filter: ', filter)
+    console.log('sort: ', sort)
     try {
-        // Récupère tous les événements dans la base de données
-        const events = await Event.find(); 
-        return events; // Retourne simplement la liste des événements
+        let query = Event.find();
+
+        if (filter) {
+            query = query.where('theme').equals(filter);
+        }
+
+        if (sort) {
+            query = query.sort(sort);
+        }
+
+        const events = await query.exec();
+        return events;
     } catch (error) {
         console.error("Erreur lors de la récupération des événements:", error);
         throw new Error("Erreur interne du serveur lors de la récupération des événements.");

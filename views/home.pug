@@ -8,10 +8,23 @@ block content
   
   body
     main
-      h1 Bienvenue sur GoodEvent
+      h3 Événements disponibles :
+      // Filtrage et tri des événements
+      form(method="get" action="/home")
+        select(name="filter")
+          option(value="") -- Choisissez un thème --
+          option(value="Music" selected=(filter === "Music" ? 'selected' : '')) Music
+          option(value="Sports" selected=(filter === "Sports" ? 'selected' : '')) Sports
+          option(value="Art" selected=(filter === "Art" ? 'selected' : '')) Art
+        button(type="submit") Filtrer
 
-      h2 Événements
+        select(name="sort")
+          option(value="") -- Trier par --
+          option(value="date" selected=(sort === "date" ? 'selected' : '')) Date
+          option(value="price" selected=(sort === "price" ? 'selected' : '')) Prix
+        button(type="submit") Trier
 
+      // Liste des événements
       if events && events.length > 0
         ul
           each event in events
