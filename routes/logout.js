@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
     try {
+      //test de la session
       if (req.session.user) {
-        // Utilisation de `await` pour attendre la destruction de la session
         await new Promise((resolve, reject) => {
           req.session.destroy((err) => {
             if (err) {
