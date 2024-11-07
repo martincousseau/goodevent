@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { getCurrentUser } = require('../controllers/authController');
 
-// Route pour afficher la page d'accueil
 router.get('/', (req, res) => {
-    console.log('Rendering account page...');
-    console.log('user : ', user)
-    res.render('account', { title: 'My Account', user: req.session.user });
+    console.log('Rendering My Account page...');
+    const user = getCurrentUser(req); 
+    res.render('account', { title: 'My Account', user: user });
 });
 
 

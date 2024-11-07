@@ -7,18 +7,8 @@ block content
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
 
   body
-    // Menu de navigation
-    nav.navbar
-      ul.navbar-menu
-        li
-          a(href="/home") Home
-        li
-          a(href="/logout") Logout
-    
     .user-info
     h1 Bienvenue, #{user.username}
     p Email : #{user.email} 
-
-    // Pied de page
-    footer
-      p &copy; 2024 Votre Application. Tous droits réservés.
+    p Prénom : #{user.first_name} 
+    p Nom : #{user.last_name} 
