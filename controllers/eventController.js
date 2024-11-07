@@ -17,8 +17,6 @@ async function createEvent(req, res) {
 }
 
 async function getAllEvents(filter, sort) {
-    console.log('filter: ', filter)
-    console.log('sort: ', sort)
     try {
         let query = Event.find();
 

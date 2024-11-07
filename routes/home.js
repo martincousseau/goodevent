@@ -3,7 +3,6 @@ const router = express.Router();
 const { getCurrentUser } = require('../controllers/authController');
 const { getAllEvents } = require('../controllers/eventController');
 
-// Middleware pour vérifier si l'utilisateur est connecté
 router.use((req, res, next) => {
     const user = getCurrentUser(req); 
     if (!user) {
@@ -13,11 +12,10 @@ router.use((req, res, next) => {
     next(); 
 });
 
-// Route pour afficher la page d'accueil
 router.get('/', async (req, res) => {
     const user = getCurrentUser(req); 
     try {
-        const filter = req.query.filter || 'Art';
+        const filter = req.query.filter || '';
         const sort = req.query.sort || '';
         const events = await getAllEvents(filter, sort);  
     
