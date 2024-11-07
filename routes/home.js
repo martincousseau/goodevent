@@ -15,7 +15,7 @@ router.use((req, res, next) => {
 router.get('/', async (req, res) => {
     const user = getCurrentUser(req); 
     try {
-        const filter = req.query.filter || '';
+        const filter = req.query.filter || 'all';
         const sort = req.query.sort || '';
         const events = await getAllEvents(filter, sort);  
     

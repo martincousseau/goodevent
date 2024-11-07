@@ -20,12 +20,16 @@ async function getAllEvents(filter, sort) {
     try {
         let query = Event.find();
 
-        if (filter) {
+        if (filter && filter !== 'all') {
             query = query.where('theme').equals(filter);
         }
 
         if (sort) {
-            query = query.sort(sort);
+            if (sort === 'date') {
+                query = query.sort({ event_date: 1 });
+            } else if (sort === 'price') {
+                query = query.sort({ price: 1 }); 
+            }
         }
 
         const events = await query.exec();
