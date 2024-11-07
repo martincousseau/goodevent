@@ -1,11 +1,11 @@
 const {mongoose} = require('mongoose');
 
-const Conversation = require('./database/Conversation');
-const Event = require('./database/Event');
-const Favorite = require('./database/Favorite');
-const Message = require('./database/Message');
-const ParticipantConversation = require('./database/ParticipantConversation');
-const User = require('./database/User');
+const Conversation = require('./models/Conversation');
+const Event = require('./models/Event');
+const Favorite = require('./models/Favorite');
+const Message = require('./models/Message');
+const ParticipantConversation = require('./models/ParticipantConversation');
+const User = require('./models/User');
 
 const args = process.argv.slice(2);
 const url = args[0] ?? 'mongodb://localhost:27017';
