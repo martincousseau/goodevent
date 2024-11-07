@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { getCurrentUser } = require('../controllers/authController');
+const { getAllEvents } = require('../controllers/eventController');
 
 // Middleware pour vérifier si l'utilisateur est connecté
 router.use((req, res, next) => {
@@ -13,10 +14,15 @@ router.use((req, res, next) => {
 });
 
 // Route pour afficher la page d'accueil
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const user = getCurrentUser(req); 
-    console.log('Rendering home page...');
-    res.render('home', { title: 'Home', user: user });
+    try {
+        const events = await getAllEvents();  
+        console.log('Rendering home page...');
+        res.render('home', { title: 'Home', user: user, events: events }); 
+    } catch (error) {
+        res.status(500).send('Erreur lors de la récupération des événements');
+    }
 });
 
 

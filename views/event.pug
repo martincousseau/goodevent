@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  body
+    if error
+      p.error= error
+
+    form(action="/event" method="POST")
+      div
+        label(for="name") Nom de l'évènement :
+        input(type="text" name="name" id="name" required)
+      div
+        label(for="theme") Thème :
+        input(type="text" name="theme" id="theme" required)
+      div
+        label(for="price") Prix :
+        input(type="integer" name="price" id="price" required)
+      div
+        label(for="event_date") Date :
+        input(type="date" name="event_date" id="event_date" required)
+      div
+        button(type="submit") Créer

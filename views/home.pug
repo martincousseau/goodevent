@@ -2,8 +2,23 @@ extends layout
 
 block content
   head
-    title Home
+    title= title
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
+  
+  body
     main
       h1 Bienvenue sur GoodEvent
+
+      h2 Événements
+
+      if events && events.length > 0
+        ul
+          each event in events
+            li
+              h3 #{event.name}
+              p Date : #{event.event_date}
+              p Prix : #{event.price}€
+              p Thème : #{event.theme}
+      else
+        p Aucune événement disponible pour le moment.

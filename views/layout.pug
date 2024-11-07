@@ -9,9 +9,10 @@ html(lang='en')
         div.container-fluid
             nav(class="navbar navbar-light bg-light justify-content-between")
                 button(class="navbar-brand mb-0 h1" href='/home') Good Event
-                //- button(class="btn btn-primary" href='/home') GoodEvent
+                a(href="/home" class="btn btn-primary") Home
 
                 if user
+                    a(href="/event" class="btn btn-primary") Créer un évènement
                     form.form-inline(method='POST' action="/logout")
                         span.mr-3 #{user.username}
                         button(class="btn btn-primary" type="submit") Déconnexion
