@@ -16,11 +16,13 @@ app.set('view engine', 'pug');
 const indexRouter = require("./routes/index.js");
 const authRouter = require("./routes/auth.js");
 const homeRouter = require("./routes/home.js");
+const accountRouter = require("./routes/account.js");
 const loginRouter = require("./routes/login.js");
 const logoutRouter = require("./routes/logout.js");
 
 // middlewares
 app.use(morgan('dev'));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
@@ -41,6 +43,7 @@ mongoose.connect('mongodb://localhost:27017/projet_test', {
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/home', homeRouter);
+app.use('/account', accountRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 

@@ -38,6 +38,8 @@ async function login(req, res) {
         }
 
         req.session.user = user;
+        
+        console.log('user in authcontroller: ', req.session.user)
         res.redirect('/home');
     } catch (error) {
         console.error("Erreur lors de la tentative de connexion:", error);
@@ -45,5 +47,8 @@ async function login(req, res) {
     }
 }
 
+function getCurrentUser(req) {
+    return req.session.user;
+}
 
-module.exports = { register, login };
+module.exports = { register, login, getCurrentUser };

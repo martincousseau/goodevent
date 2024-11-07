@@ -12,7 +12,7 @@ html(lang='en')
 
                 if user
                     form.form-inline(method='POST' action="/logout")
-                        span.mr-3 #{user.firstname} #{user.lastname}
+                        span.mr-3 #{user.username} #{user.email}
                         button(class="btn btn-primary" type="submit") Déconnexion
 
             h1= title
