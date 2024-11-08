@@ -129,5 +129,7 @@ block content
                 p Thème : #{event.theme}
               div(class="event-card-footer")
                 a(href=`/edit-event/${event._id}`, class="btn") Modifier
+                form(method='POST' action=`/favorise-event/${event._id}`)
+                  button.btn.btn-primary(type='submit') Ajouter aux favoris
       else
         p Aucune événement disponible pour le moment.

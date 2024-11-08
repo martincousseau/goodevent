@@ -62,5 +62,17 @@ block content
               p Thème : #{event.theme}
             div(class="event-card-footer")
               a(href=`/edit-event/${event._id}`, class="btn") Modifier
+    h3  Mes évènements favoris : 
+    if user_fav_events && user_fav_events.length > 0
+      div(class="event-list")
+        each event in user_fav_events
+          div(class="event-card")
+            div(class="event-card-header") #{event.name}
+            div(class="event-card-details")
+              p Date : #{event.event_date}
+              p Prix : #{event.price}€
+              p Thème : #{event.theme}
+            div(class="event-card-footer")
+              a(href=`/edit-event/${event._id}`, class="btn") Modifier
     else
       p Aucun événement créés pour le moment.

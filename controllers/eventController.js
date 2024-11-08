@@ -1,5 +1,6 @@
 const Event = require('../models/Event');
 const { getCurrentUser } = require('../controllers/authController');
+const Favorite = require('../models/Favorite');
 
 async function createEvent(req, res) {
     const user = getCurrentUser(req);
@@ -54,4 +55,31 @@ async function getEvents(userId) {
 
 }
 
-module.exports = { createEvent, getAllEvents,getEvents };
+async function addFavoriteEvent(req, res) {
+    const user = getCurrentUser(req);
+    const favorite_event_id = req.params.id;
+    console.log('favorite_event_id : ', favorite_event_id)
+
+    try {
+        const favorite = new Favorite({ favorite_user_id: user._id, favorite_event_id });
+        await favorite.save();
+        res.redirect('/account');
+    } catch (error) {
+        console.error("Erreur lors de l'ajout en favoris:", error);
+        res.status(500).send("Erreur interne lors de l'ajout en favoris.");
+    }
+}
+
+async function getFavEvents(req, res) {
+    const user = getCurrentUser(req);
+
+    try {
+        const fav_events = await Favorite.find().where('favorite_user_id').equals(user._id).exec();
+        return fav_events;
+    } catch (error) {
+        console.error("Erreur lors de la récupération des événements favoris par user:", error);
+        res.status(500).send("Erreur interne du serveur lors de la récupération des événements favoris par user.");
+    }
+}
+
+module.exports = { createEvent, getAllEvents, getEvents,addFavoriteEvent, getFavEvents };
