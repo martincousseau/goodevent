@@ -47,9 +47,9 @@ block content
 
   body
     .user-info
-    h1 Bienvenue, #{user.username}
     p  #{user.first_name} #{user.last_name} - #{user.email} 
     p Mon rôle : #{user.role}
+    p Ma date de naissance : #{user.birth_date}
     h3  Mes évènements : 
     if user_events && user_events.length > 0
       div(class="event-list")
