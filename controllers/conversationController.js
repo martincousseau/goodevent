@@ -58,4 +58,18 @@ async function addMessage(req, res) {
     }
 }
 
-module.exports = { createConversation, getMessagesByConversation, addMessage };
+async function getConversationsByUserId(userId) {
+    try {
+        const conversations = await Conversation.find({
+            participants: userId
+        }).exec();
+
+        return conversations.length > 0 ? conversations : null;
+    } catch (error) {
+        console.error("Erreur lors de la récupération des conversations par utilisateur:", error);
+        throw new Error("Erreur interne du serveur lors de la récupération des conversations par utilisateur.");
+    }
+}
+
+
+module.exports = { createConversation, getMessagesByConversation, addMessage, getConversationsByUserId };

@@ -1,8 +1,15 @@
 const express = require('express');
 const Conversation = require('../models/Conversation');
-const { getMessagesByConversation,addMessage } = require('../controllers/conversationController');
+const { getMessagesByConversation,addMessage, getConversationsByUserId } = require('../controllers/conversationController');
+const { getCurrentUser } = require('../controllers/authController');
 
 const router = express.Router();
+
+router.get('/', async (req, res) => {
+    const userId = getCurrentUser(req);
+    const conversations = await getConversationsByUserId(userId);
+    res.render('mes-conversations', { conversations });
+});
 
 router.get('/:conversationId', async (req, res) => {
     const { conversationId } = req.params;
