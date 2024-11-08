@@ -56,7 +56,6 @@ async function getEvents(userId) {
 async function addFavoriteEvent(req, res) {
     const user = getCurrentUser(req);
     const favorite_event_id = req.params.id;
-    console.log('addFavoriteEvent id:',favorite_event_id )
 
     try {
         const favorite = new Favorite({ favorite_user_id: user._id, favorite_event_id });

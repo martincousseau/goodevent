@@ -8,10 +8,7 @@ router.get('/:id', async (req, res) => {
     const eventId = req.params.id;
 
     try {
-        // Récupérer l'événement à partir de l'ID
         const event = await Event.findById(eventId);
-        console.log('event : ', event)
-
         if (!event) {
             return res.status(404).send("Événement non trouvé.");
         }
