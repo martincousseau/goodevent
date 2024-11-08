@@ -8,7 +8,10 @@ block content
 
     div.form-group
       label(for='password') Mot de passe:
-      input#password.form-control(type='text' name='password' required='true')
+      input#password.form-control(type='password' name='password' required='true')
+      
+      // Bouton pour afficher/masquer le mot de passe
+      button#toggleButton(type='button' onclick='togglePassword()') Afficher
 
     button.btn.btn-primary(type='submit') Valider
 
@@ -16,3 +19,16 @@ block content
       | Pas de compte ? 
       a(href="/auth/register") Inscrivez-vous ici
 
+  script.
+    function togglePassword() {
+      var passwordInput = document.getElementById('password');
+      var toggleButton = document.getElementById('toggleButton');
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleButton.textContent = 'Masquer';
+      } else {
+        passwordInput.type = 'password';
+        toggleButton.textContent = 'Afficher';
+      }
+    }
