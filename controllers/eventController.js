@@ -44,10 +44,8 @@ async function getAllEvents(filter, sort) {
 async function getEvents(userId) {
     try {
         let query = Event.find().where('creator_id').equals(userId);;
-        const events = await query.exec();
-        console.log('events :', events[0].name)
+        const events = await query.exec() || null;
         return events;
-
     } catch (error) {
         console.error("Erreur lors de la récupération des événements par user:", error);
         throw new Error("Erreur interne du serveur lors de la récupération des événements par user.");
@@ -58,7 +56,7 @@ async function getEvents(userId) {
 async function addFavoriteEvent(req, res) {
     const user = getCurrentUser(req);
     const favorite_event_id = req.params.id;
-    console.log('favorite_event_id : ', favorite_event_id)
+    console.log('addFavoriteEvent id:',favorite_event_id )
 
     try {
         const favorite = new Favorite({ favorite_user_id: user._id, favorite_event_id });
@@ -72,14 +70,19 @@ async function addFavoriteEvent(req, res) {
 
 async function getFavEvents(req, res) {
     const user = getCurrentUser(req);
+    if (!user) return res.status(401).send("Unauthorized access");
 
     try {
-        const fav_events = await Favorite.find().where('favorite_user_id').equals(user._id).exec();
+        const favorites = await Favorite.find({ favorite_user_id: user._id });
+        const favoriteEventIds = favorites.map(fav => fav.favorite_event_id);
+        const fav_events = await Event.find({ _id: { $in: favoriteEventIds } });
+
         return fav_events;
     } catch (error) {
         console.error("Erreur lors de la récupération des événements favoris par user:", error);
         res.status(500).send("Erreur interne du serveur lors de la récupération des événements favoris par user.");
     }
 }
+
 
 module.exports = { createEvent, getAllEvents, getEvents,addFavoriteEvent, getFavEvents };

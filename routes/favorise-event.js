@@ -7,7 +7,6 @@ router.post('/:id', async (req, res) => {
     const user = getCurrentUser(req);
     if (!user) return res.status(401).send("Unauthorized access");
 
-    const eventId = req.params.id;
     await addFavoriteEvent(req, res);
 });
 
