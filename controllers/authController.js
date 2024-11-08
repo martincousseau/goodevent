@@ -55,4 +55,13 @@ function getCurrentUser(req) {
   return req.session.user;
 }
 
-module.exports = { register, login, getCurrentUser };
+function ensureAuthenticated(req, res, next) {
+  if (req.session.user) {
+      return next(); 
+  }
+  res.redirect('/login'); 
+}
+
+
+
+module.exports = { register, login, getCurrentUser, ensureAuthenticated };
