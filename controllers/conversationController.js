@@ -7,14 +7,12 @@ async function createConversation(req, res) {
     const { title, user2Id, initialMessage } = req.body;
 
     try {
-        // Création de la conversation
         const conversation = new Conversation({ 
             title, 
             participants: [user1._id, user2Id] 
         });
         await conversation.save();
 
-        // Enregistrement d'un premier message
         const message = new Message({
             content: initialMessage,
             sender_id: user1._id,
@@ -41,4 +39,23 @@ async function getMessagesByConversation(conversationId) {
     }
 }
 
-module.exports = { createConversation, getMessagesByConversation };
+async function addMessage(req, res) {
+    const { conversationId } = req.params;
+    const { content } = req.body;
+    const user = getCurrentUser(req);
+
+    try {
+        const message = new Message({
+            content,
+            sender_id: user._id,
+            conversation_id: conversationId
+        });
+        await message.save();
+        res.status(201).send(message);
+    } catch (error) {
+        console.error("Erreur lors de l'ajout du message:", error);
+        res.status(500).send("Erreur interne lors de l'ajout du message.");
+    }
+}
+
+module.exports = { createConversation, getMessagesByConversation, addMessage };

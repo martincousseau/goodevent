@@ -1,6 +1,6 @@
 const express = require('express');
 const Conversation = require('../models/Conversation');
-const { getMessagesByConversation } = require('../controllers/conversationController');
+const { getMessagesByConversation,addMessage } = require('../controllers/conversationController');
 
 const router = express.Router();
 
@@ -11,5 +11,11 @@ router.get('/:conversationId', async (req, res) => {
 
     res.render('conversation', { conversation, messages });
 });
+
+router.get('/:conversationId/messages', getMessagesByConversation);
+
+router.post('/:conversationId/messages', addMessage);
+
+
 
 module.exports = router;
