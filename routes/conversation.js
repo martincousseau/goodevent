@@ -14,9 +14,10 @@ router.get('/', async (req, res) => {
 router.get('/:conversationId', async (req, res) => {
     const { conversationId } = req.params;
     const conversation = await Conversation.findById(conversationId).populate('participants');
+    const destinataire = conversation.participants[1].username
     const messages = await getMessagesByConversation(conversationId);
 
-    res.render('conversation', { conversation, messages });
+    res.render('conversation', { conversation, messages, destinataire });
 });
 
 router.get('/:conversationId/messages', getMessagesByConversation);
