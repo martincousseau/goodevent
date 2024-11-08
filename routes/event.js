@@ -1,8 +1,9 @@
 const express = require('express');
 const { createEvent } = require('../controllers/eventController');
+const { ensureAuthenticated } = require('../controllers/authController');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/',ensureAuthenticated, (res) => {
     res.render('event', { title: 'Créer un évènement' });
 });
 

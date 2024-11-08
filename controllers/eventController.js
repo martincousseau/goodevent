@@ -4,8 +4,8 @@ const Favorite = require('../models/Favorite');
 
 async function createEvent(req, res) {
     const user = getCurrentUser(req);
-    const { name, event_date, price, theme } = req.body;
     const creator_id = user ? user._id : null;
+    const { name, event_date, price, theme } = req.body;
 
     try {
         const event = new Event({ name, event_date, price, theme, creator_id });
@@ -20,11 +20,9 @@ async function createEvent(req, res) {
 async function getAllEvents(filter, sort) {
     try {
         let query = Event.find();
-
         if (filter && filter !== 'all') {
             query = query.where('theme').equals(filter);
         }
-
         if (sort) {
             if (sort === 'date') {
                 query = query.sort({ event_date: 1 });
@@ -32,7 +30,6 @@ async function getAllEvents(filter, sort) {
                 query = query.sort({ price: 1 });
             }
         }
-
         const events = await query.exec();
         return events;
     } catch (error) {
@@ -41,7 +38,7 @@ async function getAllEvents(filter, sort) {
     }
 }
 
-async function getEvents(userId) {
+async function getEventsByUserId(userId) {
     try {
         let query = Event.find().where('creator_id').equals(userId);;
         const events = await query.exec() || null;
@@ -56,7 +53,6 @@ async function getEvents(userId) {
 async function addFavoriteEvent(req, res) {
     const user = getCurrentUser(req);
     const favorite_event_id = req.params.id;
-    console.log('addFavoriteEvent id:',favorite_event_id )
 
     try {
         const favorite = new Favorite({ favorite_user_id: user._id, favorite_event_id });
@@ -68,7 +64,7 @@ async function addFavoriteEvent(req, res) {
     }
 }
 
-async function getFavEvents(req, res) {
+async function getFavoriteEvents(req, res) {
     const user = getCurrentUser(req);
     if (!user) return res.status(401).send("Unauthorized access");
 
@@ -85,4 +81,4 @@ async function getFavEvents(req, res) {
 }
 
 
-module.exports = { createEvent, getAllEvents, getEvents,addFavoriteEvent, getFavEvents };
+module.exports = { createEvent, getAllEvents, getEventsByUserId, addFavoriteEvent, getFavoriteEvents };
