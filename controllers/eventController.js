@@ -5,7 +5,7 @@ async function createEvent(req, res) {
     const user = getCurrentUser(req);
     const { name, event_date, price, theme } = req.body;
     const creator_id = user ? user._id : null;
-    
+
     try {
         const event = new Event({ name, event_date, price, theme, creator_id });
         await event.save();
@@ -28,7 +28,7 @@ async function getAllEvents(filter, sort) {
             if (sort === 'date') {
                 query = query.sort({ event_date: 1 });
             } else if (sort === 'price') {
-                query = query.sort({ price: 1 }); 
+                query = query.sort({ price: 1 });
             }
         }
 
@@ -40,4 +40,18 @@ async function getAllEvents(filter, sort) {
     }
 }
 
-module.exports = { createEvent, getAllEvents };
+async function getEvents(userId) {
+    try {
+        let query = Event.find().where('creator_id').equals(userId);;
+        const events = await query.exec();
+        console.log('events :', events[0].name)
+        return events;
+
+    } catch (error) {
+        console.error("Erreur lors de la récupération des événements par user:", error);
+        throw new Error("Erreur interne du serveur lors de la récupération des événements par user.");
+    }
+
+}
+
+module.exports = { createEvent, getAllEvents,getEvents };
