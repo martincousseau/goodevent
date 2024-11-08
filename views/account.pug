@@ -5,20 +5,74 @@ block content
     title My Account
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    style.
+      .event-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .event-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .event-card-header {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #333;
+      }
+      .event-card-details {
+        font-size: 1.1em;
+        color: #555;
+        margin: 10px 0;
+      }
+      .event-card-footer {
+        text-align: right;
+      }
+      .btn {
+        padding: 8px 16px;
+        font-size: 1em;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
 
   body
-    // Menu de navigation
-    nav.navbar
-      ul.navbar-menu
-        li
-          a(href="/home") Home
-        li
-          a(href="/logout") Logout
-    
     .user-info
-    h1 Bienvenue, #{user.username}
-    p Email : #{user.email} 
-
-    // Pied de page
-    footer
-      p &copy; 2024 Votre Application. Tous droits réservés.
+    p  #{user.first_name} #{user.last_name} - #{user.email} 
+    p Mon rôle : #{user.role}
+    p Ma date de naissance : #{user.birth_date}
+    h3  Mes évènements créés : 
+    if user_events && user_events.length > 0
+      div(class="event-list")
+        each event in user_events
+          div(class="event-card")
+            div(class="event-card-header") #{event.name}
+            div(class="event-card-details")
+              p Date : #{event.event_date}
+              p Prix : #{event.price}€
+              p Thème : #{event.theme}
+            div(class="event-card-footer")
+              a(href=`/edit-event/${event._id}`, class="btn") Modifier
+    h3  Mes évènements favoris : 
+    if user_fav_events && user_fav_events.length > 0
+      div(class="event-list")
+        each fav_event in user_fav_events
+          div(class="event-card")
+            div(class="event-card-header") #{fav_event.name}
+            div(class="event-card-details")
+              p Date : #{fav_event.event_date}
+              p Prix : #{fav_event.price}€
+              p Thème : #{fav_event.theme}
+            div(class="event-card-footer")
+              a(href=`/edit-event/${fav_event._id}`, class="btn") Modifier
+    else
+      p Aucun événement créés pour le moment.

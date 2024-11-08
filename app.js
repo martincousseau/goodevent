@@ -21,6 +21,7 @@ const loginRouter = require("./routes/login.js");
 const logoutRouter = require("./routes/logout.js");
 const eventRouter = require("./routes/event.js");
 const editEventRouter = require("./routes/edit-event.js");
+const favoriseEventRouter = require('./routes/favorise-event');
 
 // middlewares
 app.use(morgan('dev'));
@@ -33,10 +34,8 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// connect to the db 
+// Connect to the DB 
 mongoose.connect('mongodb://localhost:27017/projet_test', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
 }).then(() => console.log('Connecté à MongoDB'))
   .catch(err => console.error('Erreur de connexion MongoDB:', err));
 
@@ -49,6 +48,8 @@ app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/event', eventRouter);
 app.use('/edit-event', editEventRouter);
+app.use('/favorise-event', favoriseEventRouter);
+
 
 // Start server
 app.listen(port, () => {
