@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const session = require("express-session");
 const {mongoose} = require('mongoose');
+const http = require('http');
+const socketIo = require('socket.io');
+
 
 
 const app = express();
@@ -22,6 +25,8 @@ const logoutRouter = require("./routes/logout.js");
 const eventRouter = require("./routes/event.js");
 const editEventRouter = require("./routes/edit-event.js");
 const favoriseEventRouter = require('./routes/favorise-event');
+const createConversationRouter = require('./routes/create-conversation.js');
+const conversationRouter = require('./routes/conversation.js');
 
 // middlewares
 app.use(morgan('dev'));
@@ -49,7 +54,27 @@ app.use('/logout', logoutRouter);
 app.use('/event', eventRouter);
 app.use('/edit-event', editEventRouter);
 app.use('/favorise-event', favoriseEventRouter);
+app.use('/create-conversation', createConversationRouter);
+app.use('/conversation', conversationRouter);
 
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+const Message = require('./models/Message');
+
+// Écoute des connexions WebSocket
+io.on('connection', (socket) => {
+    console.log('Un utilisateur est connecté');
+
+    // Écoutez les événements de message depuis le client
+    socket.on('message', (data) => {
+        console.log('Message reçu:', data);
+    });
+
+    // Déconnexion
+    socket.on('disconnect', () => {
+        console.log('Un utilisateur s\'est déconnecté');
+    });
+});
 
 // Start server
 app.listen(port, () => {

@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Chat
+    script(src='/socket.io/socket.io.js')
+    script.
+      const socket = io();
+      socket.on('message', function(msg) {
+        const messageList = document.getElementById('message-list');
+        const newMessage = document.createElement('li');
+        newMessage.textContent = `${msg.username}: ${msg.content}`;
+        messageList.appendChild(newMessage);
+      });
+
+  body
+    h1 Chat - #{conversation.title}
+    ul#message-list
+      each message in messages
+        li #{message.sender_id.username}: #{message.content} (#{message.sent_at})
+
+    form(id='message-form')
+      input(type='text', id='message-input', required)
+      button(type='submit') Envoyer
+
+    script.
+      const form = document.getElementById('message-form');
+      form.onsubmit = function(e) {
+        e.preventDefault();
+        const input = document.getElementById('message-input');
+        const content = input.value;
+        socket.emit('newMessage', { content, conversationId: "#{conversation._id}" });
+        input.value = '';
+      };
