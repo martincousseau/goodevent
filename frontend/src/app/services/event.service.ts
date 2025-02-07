@@ -6,11 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = 'http://localhost:3000/home';
+  private apiUrl = 'http://localhost:3000/event';
 
   constructor(private http: HttpClient) {}
 
-  getEvents(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  createEvent(event: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, event);
+  }
+
+  getEvent(event: any) {
+    // return this.http.get<any>(this.apiUrl, event);
+    console.log(event);
   }
 }

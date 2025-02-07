@@ -9,6 +9,9 @@ import { EventComponent } from './pages/event/event.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { EditEventComponent } from './pages/edit-event/edit-event.component';
+import { HttpClientModule } from '@angular/common/http';
+import { EventService } from './services/event.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,10 @@ import { EditEventComponent } from './pages/edit-event/edit-event.component';
     EventComponent,
     LoginComponent,
     RegisterComponent,
-    EditEventComponent
+    EditEventComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  providers: [EventService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

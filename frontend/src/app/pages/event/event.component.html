@@ -1,1 +1,55 @@
-<p>event works!</p>
+<!-- event.component.html -->
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Nom de l'évènement :</label>
+    <input
+      type="text"
+      name="name"
+      id="name"
+      [(ngModel)]="event.name"
+      required
+    />
+  </div>
+
+  <div>
+    <label for="theme">Thème :</label>
+    <select name="theme" id="theme" [(ngModel)]="event.theme" required>
+      <option value="">-- Choisissez un thème --</option>
+      <option value="Music">Musique</option>
+      <option value="Sports">Sports</option>
+      <option value="Art">Art</option>
+      <option value="Technology">Technologie</option>
+      <option value="Education">Éducation</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="price">Prix :</label>
+    <input
+      type="number"
+      name="price"
+      id="price"
+      [(ngModel)]="event.price"
+      required
+    />
+  </div>
+
+  <div>
+    <label for="event_date">Date :</label>
+    <input
+      type="date"
+      name="event_date"
+      id="event_date"
+      [(ngModel)]="event.event_date"
+      required
+    />
+  </div>
+
+  <div>
+    <button type="submit">Créer</button>
+  </div>
+</form>
+
+<div *ngIf="error">
+  <p class="error">{{ error }}</p>
+</div>
