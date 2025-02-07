@@ -1,8 +1,6 @@
-// login.component.ts
-
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,31 +10,26 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-  passwordVisible: boolean = false;
+  showPassword: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   // Fonction pour afficher/masquer le mot de passe
   togglePassword(): void {
-    this.passwordVisible = !this.passwordVisible;
+    this.showPassword = !this.showPassword;
   }
 
-  // Fonction qui sera exécutée lors de la soumission du formulaire
+  // Fonction de soumission du formulaire
   onSubmit(): void {
-    const loginData = {
-      email: this.email,
-      password: this.password,
-    };
-
-    this.http.post('/login', loginData).subscribe(
-      (response) => {
-        // On redirige l'utilisateur après la connexion (si succès)
-        this.router.navigate(['/home']);
-      },
-      (error) => {
-        // Gérer l'erreur de connexion (par exemple, afficher un message)
-        console.error('Erreur de connexion:', error);
-      }
-    );
+    if (this.email && this.password) {
+      this.authService.login(this.email, this.password).subscribe(
+        (response) => {
+          this.router.navigate(['/home']); // Redirige vers la page d'accueil après la connexion
+        },
+        (error) => {
+          alert('Erreur de connexion'); // Gérer l'erreur de connexion
+        }
+      );
+    }
   }
 }

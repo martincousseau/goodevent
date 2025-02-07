@@ -1,1 +1,140 @@
-<p>register works!</p>
+<div class="register-container">
+  <h2>Inscription</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        class="form-control"
+        formControlName="email"
+        placeholder="Email"
+        required
+      />
+      <div *ngIf="f.email.touched && f.email.invalid" class="error">
+        <div *ngIf="f.email.errors?.required">L'email est requis.</div>
+        <div *ngIf="f.email.errors?.email">L'email est invalide.</div>
+      </div>
+    </div>
+
+    <!-- Prénom -->
+    <div class="form-group">
+      <label for="firstName">Prénom</label>
+      <input
+        id="firstName"
+        type="text"
+        class="form-control"
+        formControlName="firstName"
+        placeholder="Prénom"
+        required
+      />
+      <div *ngIf="f.firstName.touched && f.firstName.invalid" class="error">
+        <div *ngIf="f.firstName.errors?.required">Le prénom est requis.</div>
+      </div>
+    </div>
+
+    <!-- Nom -->
+    <div class="form-group">
+      <label for="lastName">Nom</label>
+      <input
+        id="lastName"
+        type="text"
+        class="form-control"
+        formControlName="lastName"
+        placeholder="Nom"
+        required
+      />
+      <div *ngIf="f.lastName.touched && f.lastName.invalid" class="error">
+        <div *ngIf="f.lastName.errors?.required">Le nom est requis.</div>
+      </div>
+    </div>
+
+    <!-- Nom d'utilisateur -->
+    <div class="form-group">
+      <label for="username">Nom d'utilisateur</label>
+      <input
+        id="username"
+        type="text"
+        class="form-control"
+        formControlName="username"
+        placeholder="Nom d'utilisateur"
+        required
+      />
+      <div *ngIf="f.username.touched && f.username.invalid" class="error">
+        <div *ngIf="f.username.errors?.required">
+          Le nom d'utilisateur est requis.
+        </div>
+        <div *ngIf="f.username.errors?.minlength">
+          Le nom d'utilisateur doit comporter au moins 3 caractères.
+        </div>
+      </div>
+    </div>
+
+    <!-- Date de naissance -->
+    <div class="form-group">
+      <label for="birthDate">Date de naissance</label>
+      <input
+        id="birthDate"
+        type="date"
+        class="form-control"
+        formControlName="birthDate"
+        required
+      />
+      <div *ngIf="f.birthDate.touched && f.birthDate.invalid" class="error">
+        <div *ngIf="f.birthDate.errors?.required">
+          La date de naissance est requise.
+        </div>
+      </div>
+    </div>
+
+    <!-- Mot de passe -->
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input
+        id="password"
+        type="password"
+        class="form-control"
+        formControlName="password"
+        placeholder="Mot de passe"
+        required
+      />
+      <div *ngIf="f.password.touched && f.password.invalid" class="error">
+        <div *ngIf="f.password.errors?.required">
+          Le mot de passe est requis.
+        </div>
+        <div *ngIf="f.password.errors?.minlength">
+          Le mot de passe doit comporter au moins 6 caractères.
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmer le mot de passe -->
+    <div class="form-group">
+      <label for="confirmPassword">Confirmer le mot de passe</label>
+      <inpu
+        id="confirmPassword"
+        type="password"
+        class="form-control"
+        formControlName="confirmPassword"
+        placeholder="Confirmer le mot de passe"
+        required
+      />
+      <div
+        *ngIf="f.confirmPassword.touched && f.confirmPassword.invalid"
+        class="error"
+      >
+        <div *ngIf="f.confirmPassword.errors?.required">
+          La confirmation du mot de passe est requise.
+        </div>
+        <div *ngIf="f.confirmPassword.errors?.mismatch">
+          Les mots de passe ne correspondent pas.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-submit" [disabled]="registerForm.invalid">
+      S'inscrire
+    </button>
+  </form>
+</div>

@@ -11,7 +11,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { EditEventComponent } from './pages/edit-event/edit-event.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventService } from './services/event.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,13 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent,
     EditEventComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [EventService],
   bootstrap: [AppComponent],
 })
