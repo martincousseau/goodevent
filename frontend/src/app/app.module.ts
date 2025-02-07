@@ -1,0 +1,30 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AccountComponent } from './pages/account/account.component';
+import { EventComponent } from './pages/event/event.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { EditEventComponent } from './pages/edit-event/edit-event.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AccountComponent,
+    EventComponent,
+    LoginComponent,
+    RegisterComponent,
+    EditEventComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
