@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  registerForm!: FormGroup; // Formulaire réactif
-  submitted = false; // Suivi de la soumission du formulaire
+  registerForm!: FormGroup;
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router) {}
 
@@ -17,16 +17,16 @@ export class RegisterComponent implements OnInit {
     // Initialisation du formulaire avec les champs et leurs validations
     this.registerForm = this.formBuilder.group(
       {
-        email: ['', [Validators.required, Validators.email]], // Email
-        firstName: ['', Validators.required], // Prénom
-        lastName: ['', Validators.required], // Nom
-        username: ['', [Validators.required, Validators.minLength(3)]], // Nom d'utilisateur
-        birthDate: ['', Validators.required], // Date de naissance
-        password: ['', [Validators.required, Validators.minLength(6)]], // Mot de passe
-        confirmPassword: ['', Validators.required], // Confirmation du mot de passe
+        email: ['', [Validators.required, Validators.email]],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        username: ['', [Validators.required, Validators.minLength(3)]],
+        birthDate: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
       },
       {
-        validator: this.passwordMatchValidator, // Valide que les mots de passe sont identiques
+        validator: this.passwordMatchValidator,
       }
     );
   }

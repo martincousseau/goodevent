@@ -12,9 +12,9 @@
         placeholder="Email"
         required
       />
-      <div *ngIf="f.email.touched && f.email.invalid" class="error">
-        <div *ngIf="f.email.errors?.required">L'email est requis.</div>
-        <div *ngIf="f.email.errors?.email">L'email est invalide.</div>
+      <div *ngIf="f['email'].touched && f['email'].invalid" class="error">
+        <div *ngIf="f['email'].errors?.['required']">L'email est requis.</div>
+        <div *ngIf="f['email'].errors?.['email']">L'email est invalide.</div>
       </div>
     </div>
 
@@ -29,8 +29,13 @@
         placeholder="Prénom"
         required
       />
-      <div *ngIf="f.firstName.touched && f.firstName.invalid" class="error">
-        <div *ngIf="f.firstName.errors?.required">Le prénom est requis.</div>
+      <div
+        *ngIf="f['firstName'].touched && f['firstName'].invalid"
+        class="error"
+      >
+        <div *ngIf="f['firstName'].errors?.['required']">
+          Le prénom est requis.
+        </div>
       </div>
     </div>
 
@@ -45,8 +50,8 @@
         placeholder="Nom"
         required
       />
-      <div *ngIf="f.lastName.touched && f.lastName.invalid" class="error">
-        <div *ngIf="f.lastName.errors?.required">Le nom est requis.</div>
+      <div *ngIf="f['lastName'].touched && f['lastName'].invalid" class="error">
+        <div *ngIf="f['lastName'].errors?.['required']">Le nom est requis.</div>
       </div>
     </div>
 
@@ -61,11 +66,11 @@
         placeholder="Nom d'utilisateur"
         required
       />
-      <div *ngIf="f.username.touched && f.username.invalid" class="error">
-        <div *ngIf="f.username.errors?.required">
+      <div *ngIf="f['username'].touched && f['username'].invalid" class="error">
+        <div *ngIf="f['username'].errors?.['required']">
           Le nom d'utilisateur est requis.
         </div>
-        <div *ngIf="f.username.errors?.minlength">
+        <div *ngIf="f['username'].errors?.['minlength']">
           Le nom d'utilisateur doit comporter au moins 3 caractères.
         </div>
       </div>
@@ -81,8 +86,11 @@
         formControlName="birthDate"
         required
       />
-      <div *ngIf="f.birthDate.touched && f.birthDate.invalid" class="error">
-        <div *ngIf="f.birthDate.errors?.required">
+      <div
+        *ngIf="f['birthDate'].touched && f['birthDate'].invalid"
+        class="error"
+      >
+        <div *ngIf="f['birthDate'].errors?.['required']">
           La date de naissance est requise.
         </div>
       </div>
@@ -99,11 +107,11 @@
         placeholder="Mot de passe"
         required
       />
-      <div *ngIf="f.password.touched && f.password.invalid" class="error">
-        <div *ngIf="f.password.errors?.required">
+      <div *ngIf="f['password'].touched && f['password'].invalid" class="error">
+        <div *ngIf="f['password'].errors?.['required']">
           Le mot de passe est requis.
         </div>
-        <div *ngIf="f.password.errors?.minlength">
+        <div *ngIf="f['password'].errors?.['minlength']">
           Le mot de passe doit comporter au moins 6 caractères.
         </div>
       </div>
@@ -112,7 +120,7 @@
     <!-- Confirmer le mot de passe -->
     <div class="form-group">
       <label for="confirmPassword">Confirmer le mot de passe</label>
-      <inpu
+      <input
         id="confirmPassword"
         type="password"
         class="form-control"
@@ -121,13 +129,13 @@
         required
       />
       <div
-        *ngIf="f.confirmPassword.touched && f.confirmPassword.invalid"
+        *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid"
         class="error"
       >
-        <div *ngIf="f.confirmPassword.errors?.required">
+        <div *ngIf="f['confirmPassword'].errors?.['required']">
           La confirmation du mot de passe est requise.
         </div>
-        <div *ngIf="f.confirmPassword.errors?.mismatch">
+        <div *ngIf="f['confirmPassword'].errors?.['mismatch']">
           Les mots de passe ne correspondent pas.
         </div>
       </div>

@@ -24,10 +24,10 @@ export class LoginComponent {
     if (this.email && this.password) {
       this.authService.login(this.email, this.password).subscribe(
         (response) => {
-          this.router.navigate(['/home']); // Redirige vers la page d'accueil après la connexion
+          this.router.navigate(['/home']);
         },
         (error) => {
-          alert('Erreur de connexion'); // Gérer l'erreur de connexion
+          alert('Erreur de connexion');
         }
       );
     }
