@@ -12,6 +12,7 @@ import { EditEventComponent } from './pages/edit-event/edit-event.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventService } from './services/event.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MenuComponent } from './pages/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     RegisterComponent,
     EditEventComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

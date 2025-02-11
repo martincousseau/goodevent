@@ -1,0 +1,85 @@
+/* Container de menu */
+.menu-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: rgb(0 0 0 / 17%);
+  color: white;
+  font-family: "Arial", sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+/* Titre du menu */
+.menu-title span {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+/* Actions à droite (boutons) */
+.menu-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+/* Boutons */
+.btn {
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #357ab7;
+}
+
+/* Bouton déconnexion */
+.logout {
+  background-color: #e74c3c;
+}
+
+.logout:hover {
+  background-color: #c0392b;
+}
+
+/* Responsiveness : Si l'écran est plus petit, les éléments sont centrés et les boutons deviennent plus grands */
+@media (max-width: 768px) {
+  .menu-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-title {
+    margin-bottom: 15px;
+  }
+
+  .menu-actions {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .btn {
+    width: 200px;
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
