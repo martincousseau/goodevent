@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 
 @Component({
@@ -9,35 +8,68 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class HomeComponent implements OnInit {
   events: any[] = [];
+  filteredEvents: any[] = [];
   filter: string = 'all';
   sort: string = '';
+  currentEventIndex: number = 0; // Index pour la pagination du carrousel
+  carouselTransform: string = 'translateX(0)'; // Transformation du carrousel
 
-  constructor(
-    private eventService: EventService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.filter = params['filter'] || 'all';
-      this.sort = params['sort'] || '';
-      this.loadEvents();
+    // Charger les événements au démarrage
+    this.eventService.getEvents().subscribe((data) => {
+      this.events = data;
+      this.filteredEvents = data; // Initialiser filteredEvents avec tous les événements
     });
   }
 
-  loadEvents(): void {
-    // this.eventService.getEvents(this.filter, this.sort).subscribe(
-    //   (data) => {
-    //     this.events = data;
-    //   },
-    //   (error) => {
-    //     console.error('Erreur lors du chargement des événements', error);
-    //   }
-    // );
+  applyFilters(): void {
+    // Appliquer le filtre
+    let filtered = this.events;
+
+    if (this.filter !== 'all') {
+      filtered = filtered.filter((event) => event.theme === this.filter);
+    }
+
+    // Appliquer le tri
+    if (this.sort === 'date') {
+      filtered = filtered.sort(
+        (a, b) =>
+          new Date(a.event_date).getTime() - new Date(b.event_date).getTime()
+      );
+    } else if (this.sort === 'price') {
+      filtered = filtered.sort((a, b) => a.price - b.price);
+    }
+
+    // Mettre à jour les événements filtrés
+    this.filteredEvents = filtered;
+
+    // Réinitialiser la pagination du carrousel
+    this.currentEventIndex = 0;
+    this.updateCarouselTransform();
   }
 
-  // Méthode pour appliquer les filtres et tri
-  applyFilters(): void {
-    this.loadEvents();
+  // Mise à jour de la transformation du carrousel (défilement)
+  updateCarouselTransform(): void {
+    const itemWidth = 100; // Largeur de chaque élément en pourcentage
+    const translateX = -this.currentEventIndex * itemWidth;
+    this.carouselTransform = `translateX(${translateX}%)`;
+  }
+
+  // Fonction pour passer à l'événement précédent
+  prevEvent(): void {
+    if (this.currentEventIndex > 0) {
+      this.currentEventIndex--;
+      this.updateCarouselTransform();
+    }
+  }
+
+  // Fonction pour passer à l'événement suivant
+  nextEvent(): void {
+    if (this.currentEventIndex < this.filteredEvents.length - 1) {
+      this.currentEventIndex++;
+      this.updateCarouselTransform();
+    }
   }
 }

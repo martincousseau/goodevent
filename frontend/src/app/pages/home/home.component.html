@@ -1,5 +1,6 @@
 <!-- Menu -->
 <app-menu />
+
 <!-- Barre de filtres -->
 <div class="filter-bar">
   <div class="filter-title">Filtrer les événements</div>
@@ -34,8 +35,8 @@
 
 <!-- Liste d'événements -->
 <div class="event-list">
-  <div *ngIf="events.length > 0; else noEvents">
-    <div class="event-card" *ngFor="let event of events">
+  <div *ngIf="filteredEvents.length > 0; else noEvents">
+    <div class="event-card" *ngFor="let event of filteredEvents">
       <div class="event-card-header">{{ event.name }}</div>
       <div class="event-card-details">
         <p>Date : {{ event.event_date | date : "dd/MM/yyyy" }}</p>
@@ -54,8 +55,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Message si aucun événement -->
   <ng-template #noEvents>
-    <app-event />
-    <!-- <p>Aucun événement disponible pour le moment.</p> -->
+    <p>Aucun événement disponible pour le moment.</p>
   </ng-template>
 </div>
