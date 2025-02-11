@@ -1,25 +1,36 @@
+<!-- Barre de filtres -->
 <div class="filter-bar">
   <div class="filter-title">Filtrer les événements</div>
   <form (ngSubmit)="applyFilters()">
-    <select name="filter" [(ngModel)]="filter">
-      <option value="all" [selected]="filter === 'all'">
-        -- Pas de filtre --
-      </option>
-      <option value="Music" [selected]="filter === 'Music'">Music</option>
-      <option value="Sports" [selected]="filter === 'Sports'">Sports</option>
-      <option value="Art" [selected]="filter === 'Art'">Art</option>
-    </select>
+    <div class="filter-group">
+      <label for="filter">Catégorie</label>
+      <select
+        name="filter"
+        [(ngModel)]="filter"
+        id="filter"
+        class="filter-select"
+      >
+        <option value="all">-- Pas de filtre --</option>
+        <option value="Music">Music</option>
+        <option value="Sports">Sports</option>
+        <option value="Art">Art</option>
+      </select>
+    </div>
 
-    <select name="sort" [(ngModel)]="sort">
-      <option value="" [selected]="sort === ''">-- Pas de tri --</option>
-      <option value="date" [selected]="sort === 'date'">Date</option>
-      <option value="price" [selected]="sort === 'price'">Prix</option>
-    </select>
+    <div class="filter-group">
+      <label for="sort">Trier par</label>
+      <select name="sort" [(ngModel)]="sort" id="sort" class="filter-select">
+        <option value="">-- Pas de tri --</option>
+        <option value="date">Date</option>
+        <option value="price">Prix</option>
+      </select>
+    </div>
 
-    <button type="submit">Appliquer les filtres</button>
+    <button type="submit" class="filter-btn">Appliquer</button>
   </form>
 </div>
 
+<!-- Liste d'événements -->
 <div class="event-list">
   <div *ngIf="events.length > 0; else noEvents">
     <div class="event-card" *ngFor="let event of events">
@@ -30,7 +41,9 @@
         <p>Thème : {{ event.theme }}</p>
       </div>
       <div class="event-card-footer">
-        <a [routerLink]="['/edit-event', event._id]" class="btn">Modifier</a>
+        <a [routerLink]="['/edit-event', event._id]" class="btn btn-edit"
+          >Modifier</a
+        >
         <form [action]="'/favorise-event/' + event._id" method="POST">
           <button type="submit" class="btn btn-primary">
             Ajouter aux favoris
@@ -40,6 +53,7 @@
     </div>
   </div>
   <ng-template #noEvents>
-    <p>Aucun événement disponible pour le moment.</p>
+    <app-event/>
+    <!-- <p>Aucun événement disponible pour le moment.</p> -->
   </ng-template>
 </div>

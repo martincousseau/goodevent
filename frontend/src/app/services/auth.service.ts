@@ -27,7 +27,8 @@ export class AuthService {
 
   // Fonction pour vérifier si l'utilisateur est authentifié
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    // return !!this.getToken();
+    return true; // DEV: À modifier
   }
 
   // Fonction de déconnexion

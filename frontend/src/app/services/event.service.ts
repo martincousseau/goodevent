@@ -14,8 +14,7 @@ export class EventService {
     return this.http.post<any>(this.apiUrl, event);
   }
 
-  getEvent(event: any) {
-    // return this.http.get<any>(this.apiUrl, event);
-    console.log(event);
+  getEventById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 }
