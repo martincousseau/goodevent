@@ -7,6 +7,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { EventComponent } from './pages/event/event.component';
 import { EditEventComponent } from './pages/edit-event/edit-event.component';
 import { AuthGuard } from './guards/auth.guard';
+import { CreateEventComponent } from './pages/create-event/create-event.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'event/:id', component: EventComponent },
   { path: 'edit-event/:id', component: EditEventComponent },
+  { path: 'create-event', component: CreateEventComponent },
 ];
 
 @NgModule({

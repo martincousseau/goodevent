@@ -33,31 +33,25 @@
   </form>
 </div>
 
-<!-- Liste d'événements -->
-<div class="event-list">
-  <div *ngIf="filteredEvents.length > 0; else noEvents">
-    <div class="event-card" *ngFor="let event of filteredEvents">
-      <div class="event-card-header">{{ event.name }}</div>
-      <div class="event-card-details">
-        <p>Date : {{ event.event_date | date : "dd/MM/yyyy" }}</p>
-        <p>Prix : {{ event.price }}€</p>
-        <p>Thème : {{ event.theme }}</p>
-      </div>
-      <div class="event-card-footer">
-        <a [routerLink]="['/edit-event', event._id]" class="btn btn-edit"
-          >Modifier</a
-        >
-        <form [action]="'/favorise-event/' + event._id" method="POST">
-          <button type="submit" class="btn btn-primary">
-            Ajouter aux favoris
-          </button>
-        </form>
-      </div>
+<div class="carousel-container">
+  <!-- Bouton gauche -->
+  <button class="carousel-btn left" (click)="scrollLeft()">&#8249;</button>
+
+  <!-- Liste des événements -->
+  <div #carousel class="event-carousel">
+    <div
+      *ngFor="let event of filteredEvents; trackBy: trackById"
+      class="event-item"
+    >
+      <app-event [eventId]="event.id"></app-event>
     </div>
   </div>
 
-  <!-- Message si aucun événement -->
-  <ng-template #noEvents>
-    <p>Aucun événement disponible pour le moment.</p>
-  </ng-template>
+  <!-- Bouton droit -->
+  <button class="carousel-btn right" (click)="scrollRight()">&#8250;</button>
 </div>
+
+<!-- Message si aucun événement -->
+<p *ngIf="filteredEvents.length === 0" class="no-events">
+  Aucun événement disponible pour le moment.
+</p>

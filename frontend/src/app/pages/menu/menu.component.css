@@ -1,4 +1,8 @@
 /* Container de menu */
+.menu-title {
+  border: none;
+  background-color: transparent;
+}
 .menu-container {
   display: flex;
   justify-content: space-between;

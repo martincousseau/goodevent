@@ -8,11 +8,11 @@
   margin-bottom: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 5rem;
+  margin-top: 60px;
+  width: 100%;
 }
 
 .filter-title {
-  margin-top: 5rem;
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 15px;
@@ -165,4 +165,74 @@ ng-template #noEvents {
   font-size: 16px;
   color: #888;
   margin-top: 40px;
+}
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.event-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Masquer la barre de défilement sur Firefox */
+  -ms-overflow-style: none; /* Masquer la barre de défilement sur IE/Edge */
+
+  &::-webkit-scrollbar {
+    display: none; /* Masquer la barre de défilement sur Chrome/Safari */
+  }
+}
+
+.event-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* Boutons de navigation */
+.carousel-btn {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}
+
+/* Message "aucun événement" */
+.no-events {
+  text-align: center;
+  font-size: 1.2em;
+  color: #666;
+  padding: 20px;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  margin-top: 20px;
 }

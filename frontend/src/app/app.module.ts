@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EventService } from './services/event.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from './pages/menu/menu.component';
+import { CreateEventComponent } from './pages/create-event/create-event.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MenuComponent } from './pages/menu/menu.component';
     RegisterComponent,
     EditEventComponent,
     MenuComponent,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
 
 @Component({
@@ -11,8 +11,9 @@ export class HomeComponent implements OnInit {
   filteredEvents: any[] = [];
   filter: string = 'all';
   sort: string = '';
-  currentEventIndex: number = 0; // Index pour la pagination du carrousel
-  carouselTransform: string = 'translateX(0)'; // Transformation du carrousel
+  currentEventIndex: number = 0;
+  carouselTransform: string = 'translateX(0)';
+  @ViewChild('carousel') carousel!: ElementRef;
 
   constructor(private eventService: EventService) {}
 
@@ -20,8 +21,21 @@ export class HomeComponent implements OnInit {
     // Charger les événements au démarrage
     this.eventService.getEvents().subscribe((data) => {
       this.events = data;
-      this.filteredEvents = data; // Initialiser filteredEvents avec tous les événements
+      this.filteredEvents = data;
     });
+    console.log('filteredEvents', this.filteredEvents);
+  }
+
+  trackById(index: number, event: { id: number }): number {
+    return event.id;
+  }
+
+  scrollLeft(): void {
+    this.carousel.nativeElement.scrollBy({ left: -250, behavior: 'smooth' });
+  }
+
+  scrollRight(): void {
+    this.carousel.nativeElement.scrollBy({ left: 250, behavior: 'smooth' });
   }
 
   applyFilters(): void {
@@ -47,29 +61,5 @@ export class HomeComponent implements OnInit {
 
     // Réinitialiser la pagination du carrousel
     this.currentEventIndex = 0;
-    this.updateCarouselTransform();
-  }
-
-  // Mise à jour de la transformation du carrousel (défilement)
-  updateCarouselTransform(): void {
-    const itemWidth = 100; // Largeur de chaque élément en pourcentage
-    const translateX = -this.currentEventIndex * itemWidth;
-    this.carouselTransform = `translateX(${translateX}%)`;
-  }
-
-  // Fonction pour passer à l'événement précédent
-  prevEvent(): void {
-    if (this.currentEventIndex > 0) {
-      this.currentEventIndex--;
-      this.updateCarouselTransform();
-    }
-  }
-
-  // Fonction pour passer à l'événement suivant
-  nextEvent(): void {
-    if (this.currentEventIndex < this.filteredEvents.length - 1) {
-      this.currentEventIndex++;
-      this.updateCarouselTransform();
-    }
   }
 }

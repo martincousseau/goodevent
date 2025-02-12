@@ -1,0 +1,97 @@
+/* event.component.css */
+.title-create-event {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-top: 10rem;
+}
+
+/* Style du formulaire */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des champs de formulaire */
+div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Style pour le bouton */
+button {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Style pour les messages d'erreur */
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Style pour la zone de sélection thème */
+select {
+  padding: 10px 15px;
+  font-size: 1em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+select option {
+  padding: 10px;
+}
+
+/* Option: focus */
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Ajout de l'alignement des divs pour le formulaire */
+div {
+  margin-bottom: 16px;
+}
