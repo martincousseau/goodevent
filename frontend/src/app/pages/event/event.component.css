@@ -13,7 +13,7 @@
 /* Titre de l'événement */
 .event-title {
   font-size: 28px;
-  color: #4a90e2;
+  color: #030003;
   font-weight: 600;
   margin-bottom: 20px;
 }
@@ -41,7 +41,7 @@
   padding: 8px 15px;
   font-size: 14px;
   font-weight: 500;
-  background-color: #4a90e2;
+  background-color: #93cff7;
   color: white;
   border: none;
   border-radius: 5px;

@@ -39,28 +39,20 @@
 /* Boutons */
 .btn {
   padding: 8px 15px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  background-color: #4a90e2;
-  color: white;
+  color: rgb(11, 10, 10);
+  /* background-color: rgb(199, 200, 200); */
+  background-color: whitesmoke;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-  background-color: #357ab7;
-}
-
-/* Bouton déconnexion */
-.logout {
-  background-color: #e74c3c;
-}
-
-.logout:hover {
-  background-color: #c0392b;
-}
+/* .logout:hover {
+  color: #c0392b;
+} */
 
 /* Responsiveness : Si l'écran est plus petit, les éléments sont centrés et les boutons deviennent plus grands */
 @media (max-width: 768px) {
