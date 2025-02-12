@@ -1,0 +1,238 @@
+/* Container de filtre */
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
+  width: 100%;
+}
+
+.filter-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Groupe de filtres */
+.filter-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.filter-select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 200px;
+  transition: border-color 0.3s ease;
+}
+
+.filter-select:focus {
+  border-color: #4a90e2;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-btn:hover {
+  background-color: #357ab7;
+}
+
+/* Liste d'événements avec défilement horizontal */
+.event-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: auto; /* Permet le défilement horizontal */
+  gap: 20px; /* Espacement entre les cartes */
+  padding: 20px 0;
+  scroll-snap-type: x mandatory; /* Pour un défilement fluide */
+  white-space: nowrap; /* Évite que les éléments se regroupent sur plusieurs lignes */
+  flex-wrap: nowrap; /* Assure que tous les éléments restent sur une ligne */
+}
+
+.event-card {
+  flex: 0 0 auto; /* Les cartes ne se redimensionnent pas */
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 15px;
+  scroll-snap-align: start; /* Alignement des éléments lors du défilement */
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+  transform: scale(1.05); /* Effet de survol */
+}
+
+.event-card-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.event-card-details {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.event-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-edit {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #218838;
+}
+
+/* Message si aucun événement disponible */
+.no-events-message {
+  font-size: 18px;
+  color: #999;
+  text-align: center;
+  width: 100%;
+  padding: 50px;
+}
+
+.event-list::-webkit-scrollbar {
+  height: 8px; /* Hauteur de la scrollbar horizontale */
+}
+
+.event-list::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.event-list::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.event-list::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+/* Alerte en cas d'absence d'événements */
+ng-template #noEvents {
+  text-align: center;
+  font-size: 16px;
+  color: #888;
+  margin-top: 40px;
+}
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.event-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.event-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* Boutons de navigation */
+.carousel-btn {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}
+
+/* Message "aucun événement" */
+.no-events {
+  text-align: center;
+  font-size: 1.2em;
+  color: #666;
+  padding: 20px;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  margin-top: 20px;
+}
