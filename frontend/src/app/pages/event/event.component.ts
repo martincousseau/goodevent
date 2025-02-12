@@ -37,4 +37,10 @@ export class EventComponent implements OnInit {
       }
     );
   }
+
+  isLiked = false;
+
+  toggleFavorite(): void {
+    this.isLiked = !this.isLiked;
+  }
 }

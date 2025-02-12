@@ -181,11 +181,11 @@ ng-template #noEvents {
   gap: 12px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Masquer la barre de défilement sur Firefox */
-  -ms-overflow-style: none; /* Masquer la barre de défilement sur IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
-    display: none; /* Masquer la barre de défilement sur Chrome/Safari */
+    display: none;
   }
 }
 
