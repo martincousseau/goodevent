@@ -2,7 +2,11 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
+// Clé secrète utilisée pour signer le JWT
+const JWT_SECRET = "ta_clé_secrète";
+
 async function register(req, res) {
+  console.log("inside register");
   const { username, email, password, first_name, last_name, birth_date } =
     req.body;
   try {
@@ -16,19 +20,23 @@ async function register(req, res) {
       birth_date,
     });
     await user.save();
-    res.redirect("/home");
+    // Envoie d'une réponse JSON
+    res.status(201).json({
+      success: true,
+      message: "Utilisateur inscrit avec succès",
+    });
   } catch (error) {
     if (error.code === 11000) {
-      res.status(400).send("L'email ou le nom d'utilisateur existe déjà.");
-    } else {
-      console.error("Erreur lors de l'inscription:", error);
-      res.status(500).send("Erreur interne du serveur lors de l'inscription.");
+      return res.status(400).json({
+        error: "L'email ou le nom d'utilisateur existe déjà.",
+      });
     }
+    console.error("Erreur lors de l'inscription:", error);
+    res.status(500).json({
+      error: "Erreur interne du serveur lors de l'inscription.",
+    });
   }
 }
-
-// Clé secrète utilisée pour signer le JWT
-const JWT_SECRET = "ta_clé_secrète";
 
 async function login(req, res) {
   const { email, password } = req.body;

@@ -1,11 +1,8 @@
-const express = require('express');
-const { register } = require('../controllers/authController');
+const express = require("express");
+const { register } = require("../controllers/authController");
 const router = express.Router();
 
-router.get('/register', (req, res) => {
-    res.render('register', { title: 'Inscription' });
-});
-
-router.post('/register', register);
+// Enregistrement d'un nouvel utilisateur
+router.post("/", register);
 
 module.exports = router;

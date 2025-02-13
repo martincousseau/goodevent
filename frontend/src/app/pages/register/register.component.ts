@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,11 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     console.log('registerForm : ', this.registerForm);
@@ -37,13 +42,19 @@ export class RegisterComponent implements OnInit {
 
     // Si le formulaire est invalide, on arrête l'exécution
     if (this.registerForm.invalid) {
+      console.log('Formulaire invalide');
       return;
     }
 
-    // Ici, tu peux envoyer les données au backend ou effectuer une autre action
-    console.log('Formulaire soumis', this.registerForm.value);
-
-    // Rediriger l'utilisateur après une inscription réussie (par exemple vers la page de connexion)
-    this.router.navigate(['/login']);
+    // Envoi des données au backend via le service
+    this.authService.register(this.registerForm.value).subscribe(
+      (response: any) => {
+        console.log('Inscription réussie', response);
+        this.router.navigate(['/login']);
+      },
+      (error: any) => {
+        console.error("Erreur lors de l'inscription", error);
+      }
+    );
   }
 }
