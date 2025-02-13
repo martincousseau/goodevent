@@ -1,97 +1,95 @@
 const Event = require("../models/Event");
-const { getCurrentUser } = require("../controllers/authController");
 const Favorite = require("../models/Favorite");
 
 async function createEvent(req, res) {
-  const user = getCurrentUser(req);
+  const user = req.user;
+  console.log("createEvent - User:", user);
   const creator_id = user ? user._id : null;
-  const { name, event_date, price, theme } = req.body;
+  const { name, theme, price, event_date, image_url } = req.body;
 
   try {
-    const event = new Event({ name, event_date, price, theme, creator_id });
+    const event = new Event({
+      name,
+      theme,
+      price,
+      event_date,
+      creator_id,
+      image_url,
+    });
     await event.save();
-    res.redirect("/home");
+    res.status(201).json(event); // Success: 201 Created + event data
   } catch (error) {
-    console.error("Erreur lors de la création de l'évènement:", error);
-    res
-      .status(500)
-      .send("Erreur interne du serveur lors de la création de l'événement.");
+    console.error("Error creating event:", error); // Log the error!
+    res.status(500).json({
+      message: "Internal server error",
+      error: error.message, // Include the actual error message
+    }); // Error: 500 + JSON error message
   }
 }
 
-async function getAllEvents(filter, sort) {
+async function getAllEvents(req, res) {
   try {
-    let query = Event.find();
-    if (filter && filter !== "all") {
-      query = query.where("theme").equals(filter);
-    }
-    if (sort) {
-      if (sort === "date") {
-        query = query.sort({ event_date: 1 });
-      } else if (sort === "price") {
-        query = query.sort({ price: 1 });
-      }
-    }
-    const events = await query.exec();
-    return events;
+    const events = await Event.find();
+    res.json(events);
   } catch (error) {
-    console.error("Erreur lors de la récupération des événements:", error);
-    throw new Error(
-      "Erreur interne du serveur lors de la récupération des événements."
-    );
+    console.error("Error fetching events:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+async function getEventById(req, res) {
+  const eventId = req.params.id;
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+    res.json(event);
+  } catch (error) {
+    console.error("Error fetching event by ID:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
 async function getEventsByUserId(userId) {
+  // The missing function!
   try {
-    let query = Event.find().where("creator_id").equals(userId);
-    const events = (await query.exec()) || null;
+    const events = await Event.find({ creator_id: userId });
     return events;
   } catch (error) {
-    console.error(
-      "Erreur lors de la récupération des événements par user:",
-      error
-    );
-    throw new Error(
-      "Erreur interne du serveur lors de la récupération des événements par user."
-    );
+    console.error("Error getting events by user ID:", error);
+    throw error; // Re-throw for handling in the route
   }
 }
 
 async function addFavoriteEvent(req, res) {
-  const user = getCurrentUser(req);
+  const user = req.user;
   const favorite_event_id = req.params.id;
 
   try {
-    const favorite = new Favorite({
+    const existingFavorite = await Favorite.findOne({
       favorite_user_id: user._id,
       favorite_event_id,
     });
-    await favorite.save();
-    res.redirect("/account");
+
+    if (existingFavorite) {
+      await Favorite.deleteOne({ _id: existingFavorite._id });
+      return res.status(200).json({ message: "Favorite removed" });
+    } else {
+      const favorite = new Favorite({
+        favorite_user_id: user._id,
+        favorite_event_id,
+      });
+      await favorite.save();
+      return res.status(201).json({ message: "Favorite added" });
+    }
   } catch (error) {
-    console.error("Erreur lors de l'ajout en favoris:", error);
-    res.status(500).send("Erreur interne lors de l'ajout en favoris.");
+    console.error("Error adding/removing favorite:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
-// async function getFavoriteEvents(req, res) {
-//     const user = getCurrentUser(req);
-//     if (!user) return res.status(401).send("Unauthorized access");
-
-//     try {
-//         const favorites = await Favorite.find({ favorite_user_id: user._id });
-//         const favoriteEventIds = favorites.map(fav => fav.favorite_event_id);
-//         const fav_events = await Event.find({ _id: { $in: favoriteEventIds } });
-
-//         return fav_events;
-//     } catch (error) {
-//         console.error("Erreur lors de la récupération des événements favoris par user:", error);
-//         res.status(500).send("Erreur interne du serveur lors de la récupération des événements favoris par user.");
-//     }
-// }
 async function getFavoriteEvents(req) {
-  // Remove res parameter
   const user = req.user;
 
   if (!user) {
@@ -102,20 +100,19 @@ async function getFavoriteEvents(req) {
   try {
     const favorites = await Favorite.find({ favorite_user_id: user._id });
     const favoriteEventIds = favorites.map((fav) => fav.favorite_event_id);
-
-    // Efficiently fetch favorite events using $in operator
     const fav_events = await Event.find({ _id: { $in: favoriteEventIds } });
-    return fav_events; // Return the array of events
+    return fav_events;
   } catch (error) {
     console.error("Error fetching favorite events:", error);
-    return []; // Return an empty array in case of error
+    return [];
   }
 }
 
 module.exports = {
   createEvent,
-  getAllEvents,
-  getEventsByUserId,
   addFavoriteEvent,
   getFavoriteEvents,
+  getEventById,
+  getAllEvents,
+  getEventsByUserId, // Make sure to export this function
 };

@@ -3,11 +3,11 @@ const router = express.Router();
 const { login } = require("../controllers/authController");
 
 router.get("/", (req, res) => {
-  if (req.session.user) {
+  if (req.user) {
     res.status(200).json({
       isAuthenticated: true,
       message: "Connecté avec succès",
-      user: req.session.user,
+      user: req.user,
     });
   }
 });

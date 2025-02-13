@@ -1,6 +1,6 @@
 // auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,11 +23,12 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    localStorage.setItem('authToken', token);
+    localStorage.setItem('token', token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('authToken');
+    // return localStorage.getItem('authToken');
+    return localStorage.getItem('token');
   }
 
   isAuthenticated(): boolean {
@@ -36,6 +37,15 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
   }
+
+  // getCurrentUser(): Observable<any> {
+  //   const token = localStorage.getItem('token');
+  //   this.getToken();
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+  //   return this.http.get(`${this.apiUrl}`, { headers });
+  // }
 }

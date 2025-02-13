@@ -1,77 +1,43 @@
+// FRONT (event.service.ts)
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = 'http://localhost:3000/event';
+  private apiUrl = 'http://localhost:3000/api/event';
 
   constructor(private http: HttpClient) {}
-  // Mock des données d'événements
-  private events = [
-    {
-      id: '1',
-      name: 'Concert de Jazz',
-      theme: 'Music',
-      price: 25,
-      event_date: '2025-02-25T20:00:00',
-    },
-    {
-      id: '2',
-      name: 'Match de Football',
-      theme: 'Sports',
-      price: 15,
-      event_date: '2025-03-10T18:00:00',
-    },
-    {
-      id: '3',
-      name: 'Exposition Art Contemporain',
-      theme: 'Art',
-      price: 12,
-      event_date: '2025-03-15T10:00:00',
-    },
-    {
-      id: '4',
-      name: 'Festival de Musique Électronique',
-      theme: 'Music',
-      price: 40,
-      event_date: '2025-04-01T22:00:00',
-    },
-    {
-      id: '5',
-      name: 'Match de Basketball',
-      theme: 'Sports',
-      price: 20,
-      event_date: '2025-03-20T20:00:00',
-    },
-    {
-      id: '6',
-      name: 'Match de Basketball',
-      theme: 'Sports',
-      price: 20,
-      event_date: '2025-03-20T20:00:00',
-    },
-    {
-      id: '7',
-      name: 'Match de Basketball',
-      theme: 'Sports',
-      price: 20,
-      event_date: '2025-03-20T20:00:00',
-    },
-  ];
 
   createEvent(event: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, event);
+    const token = localStorage.getItem('token');
+    console.log('Token sent:', token);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post<any>(this.apiUrl, event, { headers });
   }
 
   getEventById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+    return this.http.get<any>(
+      `<span class="math-inline">\{this\.apiUrl\}/</span>{id}`
+    );
   }
 
   getEvents(): Observable<any[]> {
-    // return this.http.get<any>(this.apiUrl);
-    return of(this.events);
+    return this.http.get<any[]>(this.apiUrl); // No more mock data
+  }
+
+  addFavorite(eventId: string): Observable<any> {
+    const favoriteUrl = `http://localhost:3000/api/favorise-event/${eventId}`; // URL for adding favorites
+    return this.http.post(favoriteUrl, {}); // POST request, empty body
+  }
+
+  editEvent(eventId: string, event: any): Observable<any> {
+    const editUrl = `http://localhost:3000/api/edit-event/${eventId}`;
+    return this.http.put(editUrl, event); // PUT request for updates
   }
 }

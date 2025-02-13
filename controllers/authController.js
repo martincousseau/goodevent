@@ -5,6 +5,36 @@ const jwt = require("jsonwebtoken");
 // Clé secrète utilisée pour signer le JWT
 const JWT_SECRET = "secretstory";
 
+const authenticateJWT = async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  console.log("Authorization header:", authHeader);
+
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+
+    jwt.verify(token, JWT_SECRET, async (err, user) => {
+      if (err) {
+        console.error("JWT Verification Error:", err); // Log the error!
+        return res.status(403).json({ message: "Invalid token" }); // Send JSON error
+      }
+
+      try {
+        const foundUser = await User.findById(user.userId); // Correct user ID field
+        if (!foundUser) {
+          return res.status(401).json({ message: "User not found" }); // Send JSON error
+        }
+        req.user = foundUser; // Set req.user correctly
+        next();
+      } catch (error) {
+        console.error("Error finding user:", error);
+        return res.status(500).json({ message: "Internal server error" }); // Send JSON error
+      }
+    });
+  } else {
+    return res.status(401).json({ message: "No token provided" }); // Send JSON error
+  }
+};
+
 async function register(req, res) {
   console.log("inside register");
   const { username, email, password, first_name, last_name, birth_date } =
@@ -79,10 +109,16 @@ function getCurrentUser(req) {
 }
 
 function ensureAuthenticated(req, res, next) {
-  if (req.session.user) {
+  if (req.user) {
     return next();
   }
   res.redirect("/login");
 }
 
-module.exports = { register, login, getCurrentUser, ensureAuthenticated };
+module.exports = {
+  register,
+  login,
+  getCurrentUser,
+  ensureAuthenticated,
+  authenticateJWT,
+};
