@@ -3,7 +3,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 // Clé secrète utilisée pour signer le JWT
-const JWT_SECRET = "ta_clé_secrète";
+const JWT_SECRET = "secretstory";
 
 async function register(req, res) {
   console.log("inside register");
@@ -58,15 +58,15 @@ async function login(req, res) {
 
     // Créer un token JWT
     const token = jwt.sign(
-      { userId: user._id, email: user.email }, // Payload du token
-      JWT_SECRET, // Clé secrète
-      { expiresIn: "1h" } // Expiration du token dans 1 heure
+      { userId: user._id, email: user.email },
+      JWT_SECRET,
+      { expiresIn: "1h" }
     );
 
     res.status(200).json({
       success: true,
       message: "Connecté avec succès",
-      token, // Envoie le token au frontend
+      token,
     });
   } catch (error) {
     console.error("Erreur lors de la tentative de connexion:", error);
@@ -75,7 +75,7 @@ async function login(req, res) {
 }
 
 function getCurrentUser(req) {
-  return req.session.user;
+  return req.user;
 }
 
 function ensureAuthenticated(req, res, next) {

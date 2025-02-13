@@ -1,5 +1,3 @@
-// account.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,9 +6,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AccountService {
+  private apiUrl = 'http://localhost:3000/api';
+
   constructor(private http: HttpClient) {}
 
   getUserData(): Observable<any> {
-    return this.http.get<any>('http://localhost:3000/account');
+    const token = localStorage.getItem('authToken');
+    return this.http.get<any>(`${this.apiUrl}/account`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   }
 }

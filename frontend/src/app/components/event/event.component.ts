@@ -23,7 +23,6 @@ export class EventComponent implements OnInit {
   ngOnInit(): void {
     if (this.eventId) {
       this.getEventDetails(this.eventId);
-      console.log('event', this.event);
     }
   }
 
