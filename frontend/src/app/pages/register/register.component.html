@@ -117,30 +117,6 @@
       </div>
     </div>
 
-    <!-- Confirmer le mot de passe -->
-    <div class="form-group">
-      <label for="confirmPassword">Confirmer le mot de passe</label>
-      <input
-        id="confirmPassword"
-        type="password"
-        class="form-control"
-        formControlName="confirmPassword"
-        placeholder="Confirmer le mot de passe"
-        required
-      />
-      <div
-        *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid"
-        class="error"
-      >
-        <div *ngIf="f['confirmPassword'].errors?.['required']">
-          La confirmation du mot de passe est requise.
-        </div>
-        <div *ngIf="f['confirmPassword'].errors?.['mismatch']">
-          Les mots de passe ne correspondent pas.
-        </div>
-      </div>
-    </div>
-
     <button type="submit" class="btn-submit" [disabled]="registerForm.invalid">
       S'inscrire
     </button>

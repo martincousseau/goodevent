@@ -9,7 +9,15 @@ const port = 3000;
 
 // CORS pour permettre les requêtes depuis Angular
 const cors = require("cors");
-app.use(cors());
+// app.use(cors());
+
+// Autorise uniquement Angular
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+    credentials: true,
+  })
+);
 
 // Middleware pour parser les requêtes JSON et URL-encoded
 app.use(morgan("dev"));
@@ -38,8 +46,7 @@ app.use(express.static(path.join(__dirname, "public/frontend")));
 
 // Routes API : Utilisation de ces routes pour l'accès aux données (REST)
 const indexRouter = require("./routes/index.js");
-const authRouter = require("./routes/auth.js");
-const homeRouter = require("./routes-angular/home.js"); // Ici tu as une route spécifique pour Angular
+const registerRouter = require("./routes/auth.js");
 const accountRouter = require("./routes/account.js");
 const loginRouter = require("./routes/login.js");
 const logoutRouter = require("./routes/logout.js");
@@ -49,8 +56,7 @@ const favoriseEventRouter = require("./routes/favorise-event");
 
 // Routes API
 app.use("/api", indexRouter);
-app.use("/api/auth", authRouter);
-app.use("/api/home", homeRouter);
+app.use("/api/register", registerRouter);
 app.use("/api/account", accountRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter);

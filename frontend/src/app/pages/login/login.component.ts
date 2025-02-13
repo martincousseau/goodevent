@@ -21,15 +21,28 @@ export class LoginComponent {
 
   // Fonction de soumission du formulaire
   onSubmit(): void {
-    if (this.email && this.password) {
-      this.authService.login(this.email, this.password).subscribe(
-        (response) => {
-          this.router.navigate(['/home']);
-        },
-        (error) => {
-          alert('Erreur de connexion');
-        }
-      );
+    if (!this.email || !this.password) {
+      alert('Veuillez entrer un email et un mot de passe.');
+      return;
     }
+
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response) => {
+        console.log('Réponse complète reçue :', response); // Vérification
+
+        if (response.token) {
+          console.log('Authentification réussie:', response);
+          this.authService.saveToken(response.token);
+          this.router.navigate(['/']);
+        } else {
+          console.log('Authentification échouée: pas de token');
+          alert('Authentification échouée, veuillez réessayer.');
+        }
+      },
+      error: (error) => {
+        console.error('Erreur de connexion:', error);
+        alert('Erreur de connexion. Vérifiez vos identifiants.');
+      },
+    });
   }
 }
