@@ -1,9 +1,11 @@
 <div class="event-details">
   <h2 class="event-title">{{ event.name }}</h2>
   <div class="event-info">
-    <p><strong>Thème : </strong>{{ event.theme }}</p>
-    <p><strong>Prix : </strong>{{ event.price }}€</p>
-    <p><strong>Date : </strong>{{ event.event_date | date : "dd/MM/yyyy" }}</p>
+    <p><strong>Thème : </strong>{{ this.event.theme }}</p>
+    <p><strong>Prix : </strong>{{ this.event.price }}€</p>
+    <p>
+      <strong>Date : </strong>{{ this.event.event_date | date : "dd/MM/yyyy" }}
+    </p>
     <button class="btn modifier-event" routerLink="/edit-event">
       Modifier
     </button>

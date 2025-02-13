@@ -30,6 +30,7 @@ async function createEvent(req, res) {
 async function getAllEvents(req, res) {
   try {
     const events = await Event.find();
+    console.log("getAllEvents - Events:", events);
     res.json(events);
   } catch (error) {
     console.error("Error fetching events:", error);

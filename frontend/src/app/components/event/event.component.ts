@@ -10,13 +10,15 @@ import { AuthService } from 'src/app/services/auth.service'; // Import AuthServi
 })
 export class EventComponent implements OnInit {
   @Input() eventId: string | undefined;
+  @Input()
+  event!: EventInterface;
 
-  event: EventInterface = {
-    name: '',
-    theme: '',
-    price: null,
-    event_date: '',
-  };
+  // event: EventInterface = {
+  //   name: '',
+  //   theme: '',
+  //   price: null,
+  //   event_date: '',
+  // };
   error: string | null = null;
   isLiked: boolean = false; // Initialize isLiked
 

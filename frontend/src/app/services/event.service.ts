@@ -28,7 +28,8 @@ export class EventService {
   }
 
   getEvents(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl); // No more mock data
+    console.log('getEvents');
+    return this.http.get<any[]>(this.apiUrl);
   }
 
   addFavorite(eventId: string): Observable<any> {

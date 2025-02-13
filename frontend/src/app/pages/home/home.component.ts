@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.eventService.getEvents().subscribe((data) => {
       this.events = data;
-      this.applyFilters(); // Apply initial filter after loading events
+      console.log('Events:', this.events);
+      this.applyFilters();
     });
   }
 
