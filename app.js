@@ -9,7 +9,15 @@ const port = 3000;
 
 // CORS pour permettre les requêtes depuis Angular
 const cors = require("cors");
-app.use(cors());
+// app.use(cors());
+
+// Autorise uniquement Angular
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+    credentials: true,
+  })
+);
 
 // Middleware pour parser les requêtes JSON et URL-encoded
 app.use(morgan("dev"));

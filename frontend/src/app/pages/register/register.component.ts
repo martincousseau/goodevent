@@ -14,28 +14,16 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit() {
+    console.log('registerForm : ', this.registerForm);
     // Initialisation du formulaire avec les champs et leurs validations
-    this.registerForm = this.formBuilder.group(
-      {
-        email: ['', [Validators.required, Validators.email]],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        username: ['', [Validators.required, Validators.minLength(3)]],
-        birthDate: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', Validators.required],
-      },
-      {
-        validator: this.passwordMatchValidator,
-      }
-    );
-  }
-
-  // Validateur pour vérifier si les mots de passe correspondent
-  passwordMatchValidator(group: FormGroup) {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      birthDate: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
   }
 
   // Accéder aux contrôles du formulaire

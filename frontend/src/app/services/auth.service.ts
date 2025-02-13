@@ -1,3 +1,4 @@
+// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -6,32 +7,31 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/auth'; // URL de l'API de backend
+  private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) {}
 
-  // Fonction de connexion
   login(email: string, password: string): Observable<any> {
+    console.log('inside login');
     return this.http.post(`${this.apiUrl}/login`, { email, password });
   }
 
-  // Fonction pour sauvegarder le token dans le localStorage ou sessionStorage
-  saveToken(token: string): void {
-    localStorage.setItem('authToken', token); // Stockage du token
+  register(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData);
   }
 
-  // Fonction pour obtenir le token
+  saveToken(token: string): void {
+    localStorage.setItem('authToken', token);
+  }
+
   getToken(): string | null {
     return localStorage.getItem('authToken');
   }
 
-  // Fonction pour vérifier si l'utilisateur est authentifié
   isAuthenticated(): boolean {
-    // return !!this.getToken();
-    return true; // DEV: À modifier
+    return !!this.getToken();
   }
 
-  // Fonction de déconnexion
   logout(): void {
     localStorage.removeItem('authToken');
   }
