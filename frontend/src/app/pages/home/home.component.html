@@ -1,43 +1,10 @@
 <!-- Menu -->
 <app-menu />
 
-<!-- Barre de filtres -->
-<div class="filter-bar">
-  <div class="filter-title">Filtrer les événements</div>
-  <form (ngSubmit)="applyFilters()">
-    <div class="filter-group">
-      <label for="filter">Catégorie</label>
-      <select
-        name="filter"
-        [(ngModel)]="filter"
-        id="filter"
-        class="filter-select"
-      >
-        <option value="all">-- Pas de filtre --</option>
-        <option value="Music">Music</option>
-        <option value="Sports">Sports</option>
-        <option value="Art">Art</option>
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label for="sort">Trier par</label>
-      <select name="sort" [(ngModel)]="sort" id="sort" class="filter-select">
-        <option value="">-- Pas de tri --</option>
-        <option value="date">Date</option>
-        <option value="price">Prix</option>
-      </select>
-    </div>
-
-    <button type="submit" class="filter-btn">Appliquer</button>
-  </form>
-</div>
+<app-search-bar></app-search-bar>
 
 <div class="carousel-container">
-  <!-- Bouton gauche -->
-  <button class="carousel-btn left" (click)="scrollLeft()">&#8249;</button>
-
-  <!-- Liste des événements -->
+  <!-- <button class="carousel-btn left" (click)="scrollLeft()">&#8249;</button> -->
   <div #carousel class="event-carousel">
     <div
       *ngFor="let event of filteredEvents; trackBy: trackById"
@@ -46,9 +13,7 @@
       <app-event [eventId]="event.id"></app-event>
     </div>
   </div>
-
-  <!-- Bouton droit -->
-  <button class="carousel-btn right" (click)="scrollRight()">&#8250;</button>
+  <!-- <button class="carousel-btn right" (click)="scrollRight()">&#8250;</button> -->
 </div>
 
 <!-- Message si aucun événement -->

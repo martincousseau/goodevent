@@ -3,13 +3,14 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #f9f9f9;
+  background-color: #e22a2a;
   padding: 20px;
   margin-bottom: 30px;
-  border-radius: 8px;
+  border-radius: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 60px;
-  width: 100%;
+  width: 50%;
+  height: 50px;
 }
 
 .filter-title {
@@ -170,6 +171,7 @@ ng-template #noEvents {
 .carousel-container {
   position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
   overflow: hidden;
@@ -235,4 +237,13 @@ ng-template #noEvents {
   border-radius: 8px;
   background: #f9f9f9;
   margin-top: 20px;
+}
+
+.filter-content {
+  display: flex;
+  direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }

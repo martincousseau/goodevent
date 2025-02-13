@@ -14,6 +14,7 @@ import { EventService } from './services/event.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from './pages/menu/menu.component';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CreateEventComponent } from './pages/create-event/create-event.componen
     EditEventComponent,
     MenuComponent,
     CreateEventComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,

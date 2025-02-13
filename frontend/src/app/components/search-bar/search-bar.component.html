@@ -1,0 +1,32 @@
+<div class="search-bar">
+  <div class="search-bar__item">
+    <span class="search-bar__label">Thème</span>
+    <select
+      name="filter"
+      [(ngModel)]="filter"
+      id="filter"
+      class="filter-select"
+    >
+      <option class="search-bar__input" value="all">Filtrer par thème</option>
+      <option value="Music">Music</option>
+      <option value="Sports">Sports</option>
+      <option value="Art">Art</option>
+    </select>
+  </div>
+  <div class="search-bar__separator"></div>
+  <div class="search-bar__item">
+    <span class="search-bar__label">Date</span>
+    <select
+      name="filter"
+      [(ngModel)]="filter"
+      id="filter"
+      class="filter-select"
+    >
+      <option class="search-bar__input" value="all">Trier</option>
+      <option value="Date">Date</option>
+      <option value="Prix">Prix</option>
+    </select>
+  </div>
+  <div class="search-bar__separator"></div>
+  <button (click)="search()" class="search-bar__button">🔍</button>
+</div>
