@@ -31,6 +31,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
+    console.log('inside isAuthenticated :', !!this.getToken());
     return !!this.getToken();
   }
 
