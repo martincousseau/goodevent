@@ -23,10 +23,10 @@ export class RegisterComponent implements OnInit {
     // Initialisation du formulaire avec les champs et leurs validations
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       username: ['', [Validators.required, Validators.minLength(3)]],
-      birthDate: ['', Validators.required],
+      birth_date: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
@@ -40,7 +40,6 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // Si le formulaire est invalide, on arrête l'exécution
     if (this.registerForm.invalid) {
       console.log('Formulaire invalide');
       return;

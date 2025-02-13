@@ -20,20 +20,20 @@
 
     <!-- Prénom -->
     <div class="form-group">
-      <label for="firstName">Prénom</label>
+      <label for="first_name">Prénom</label>
       <input
-        id="firstName"
+        id="first_name"
         type="text"
         class="form-control"
-        formControlName="firstName"
+        formControlName="first_name"
         placeholder="Prénom"
         required
       />
       <div
-        *ngIf="f['firstName'].touched && f['firstName'].invalid"
+        *ngIf="f['first_name'].touched && f['first_name'].invalid"
         class="error"
       >
-        <div *ngIf="f['firstName'].errors?.['required']">
+        <div *ngIf="f['first_name'].errors?.['required']">
           Le prénom est requis.
         </div>
       </div>
@@ -41,17 +41,22 @@
 
     <!-- Nom -->
     <div class="form-group">
-      <label for="lastName">Nom</label>
+      <label for="last_name">Nom</label>
       <input
-        id="lastName"
+        id="last_name"
         type="text"
         class="form-control"
-        formControlName="lastName"
+        formControlName="last_name"
         placeholder="Nom"
         required
       />
-      <div *ngIf="f['lastName'].touched && f['lastName'].invalid" class="error">
-        <div *ngIf="f['lastName'].errors?.['required']">Le nom est requis.</div>
+      <div
+        *ngIf="f['last_name'].touched && f['last_name'].invalid"
+        class="error"
+      >
+        <div *ngIf="f['last_name'].errors?.['required']">
+          Le nom est requis.
+        </div>
       </div>
     </div>
 
@@ -78,19 +83,19 @@
 
     <!-- Date de naissance -->
     <div class="form-group">
-      <label for="birthDate">Date de naissance</label>
+      <label for="birth_date">Date de naissance</label>
       <input
-        id="birthDate"
+        id="birth_date"
         type="date"
         class="form-control"
-        formControlName="birthDate"
+        formControlName="birth_date"
         required
       />
       <div
-        *ngIf="f['birthDate'].touched && f['birthDate'].invalid"
+        *ngIf="f['birth_date'].touched && f['birth_date'].invalid"
         class="error"
       >
-        <div *ngIf="f['birthDate'].errors?.['required']">
+        <div *ngIf="f['birth_date'].errors?.['required']">
           La date de naissance est requise.
         </div>
       </div>

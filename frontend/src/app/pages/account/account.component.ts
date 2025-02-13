@@ -20,29 +20,24 @@ export class AccountComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.authService.isAuthenticated()) {
-      console.log('Utilisateur authentifié - récupération des données');
-      this.accountService.getUserData().subscribe(
-        (data) => {
-          console.log("Réponse de l'API:", data);
-          this.user = data.user;
-          this.user_events = data.user_events;
-          this.user_fav_events = data.user_fav_events;
-        },
-        (error) => {
-          console.error(
-            'Erreur lors de la récupération des données utilisateur:',
-            error
-          );
-          alert('Erreur lors du chargement des données utilisateur.');
-        }
-      );
-    } else {
-      console.log(
-        'Utilisateur non authentifié - redirection vers la page de login'
-      );
-      // Si l'utilisateur n'est pas authentifié, rediriger vers la page de login
+    if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
+      return;
     }
+
+    this.accountService.getUserData().subscribe({
+      next: (data) => {
+        this.user = data?.user ?? null;
+        this.user_events = data?.user_events ?? [];
+        this.user_fav_events = data?.user_fav_events ?? [];
+      },
+      error: (error) => {
+        console.error(
+          'Erreur lors de la récupération des données utilisateur:',
+          error
+        );
+        alert('Erreur lors du chargement des données utilisateur.');
+      },
+    });
   }
 }
