@@ -46,6 +46,20 @@ export class EventService {
       price: 20,
       event_date: '2025-03-20T20:00:00',
     },
+    {
+      id: '6',
+      name: 'Match de Basketball',
+      theme: 'Sports',
+      price: 20,
+      event_date: '2025-03-20T20:00:00',
+    },
+    {
+      id: '7',
+      name: 'Match de Basketball',
+      theme: 'Sports',
+      price: 20,
+      event_date: '2025-03-20T20:00:00',
+    },
   ];
 
   createEvent(event: any): Observable<any> {
