@@ -2,31 +2,36 @@
   <div class="search-bar__item">
     <span class="search-bar__label">Thème</span>
     <select
-      name="filter"
-      [(ngModel)]="filter"
-      id="filter"
+      name="theme"
+      [(ngModel)]="theme"
+      id="theme"
       class="filter-select"
+      (change)="search()"
     >
-      <option class="search-bar__input" value="all">Filtrer par thème</option>
-      <option value="Music">Music</option>
+      <option value="all">Tous les thèmes</option>
+      <option value="Music">Musique</option>
       <option value="Sports">Sports</option>
       <option value="Art">Art</option>
     </select>
   </div>
   <div class="search-bar__separator"></div>
   <div class="search-bar__item">
-    <span class="search-bar__label">Date</span>
+    <span class="search-bar__label">Trier par</span>
     <select
-      name="filter"
-      [(ngModel)]="filter"
-      id="filter"
+      name="sort"
+      [(ngModel)]="sort"
+      id="sort"
       class="filter-select"
+      (change)="search()"
     >
-      <option class="search-bar__input" value="all">Trier</option>
-      <option value="Date">Date</option>
-      <option value="Prix">Prix</option>
+      <option value="">Trier par</option>
+      <option value="date">Date</option>
+      <option value="price">Prix</option>
     </select>
   </div>
   <div class="search-bar__separator"></div>
   <button (click)="search()" class="search-bar__button">🔍</button>
+  <button (click)="resetFilter()" class="search-bar__button">
+    Réinitialiser
+  </button>
 </div>

@@ -1,7 +1,7 @@
 <!-- Menu -->
 <app-menu />
 
-<app-search-bar></app-search-bar>
+<app-search-bar (filterChange)="onFilterChange($event)"></app-search-bar>
 
 <div class="carousel-container">
   <!-- <button class="carousel-btn left" (click)="scrollLeft()">&#8249;</button> -->
