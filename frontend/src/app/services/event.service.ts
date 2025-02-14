@@ -21,6 +21,7 @@ export class EventService {
   getEvents(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
   getEventForEdit(id: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
@@ -59,5 +60,9 @@ export class EventService {
       Authorization: `Bearer ${this.token}`,
     });
     return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+  }
+
+  getEventById(eventId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${eventId}`);
   }
 }

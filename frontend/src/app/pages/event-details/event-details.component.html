@@ -1,6 +1,8 @@
-<div class="event-details" [routerLink]="['/event', eventId]">
+<app-menu></app-menu>
+
+<div class="event-details">
   <div class="event-header">
-    <h2 class="event-title">{{ event.name }}</h2>
+    <h2 class="event-title">{{ event?.name }}</h2>
     <button class="fav-event" (click)="toggleFavorite()">
       <svg class="heart" [class.liked]="isLiked" viewBox="0 0 24 24">
         <path
@@ -9,17 +11,19 @@
       </svg>
     </button>
   </div>
+
   <div class="event-info">
-    <p><strong>Thème : </strong>{{ event.theme }}</p>
-    <p><strong>Prix : </strong>{{ event.price }}€</p>
-    <p><strong>Date : </strong>{{ event.event_date | date : "dd/MM/yyyy" }}</p>
+    <p><strong>Thème :</strong> {{ event?.theme }}</p>
+    <p><strong>Prix :</strong> {{ event?.price }}€</p>
+    <p><strong>Date :</strong> {{ event?.event_date | date : "dd/MM/yyyy" }}</p>
+
     <div class="event-footer">
       <button class="btn supprimer-event" (click)="deleteEvent()">
         Supprimer
       </button>
       <button
         class="btn modifier-event"
-        [routerLink]="['/edit-event', eventId]"
+        [routerLink]="['/edit-event', event?._id]"
       >
         Modifier
       </button>
