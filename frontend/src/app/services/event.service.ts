@@ -1,7 +1,7 @@
 // FRONT (event.service.ts)
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +27,6 @@ export class EventService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  addFavorite(eventId: string): Observable<any> {
-    const favoriteUrl = `http://localhost:3000/api/favorise-event/${eventId}`;
-    return this.http.post(favoriteUrl, {});
-  }
-
   getEventForEdit(id: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
@@ -47,5 +42,24 @@ export class EventService {
       Authorization: `Bearer ${this.token}`,
     });
     return this.http.put<any>(`${this.apiUrl}/${id}`, event, { headers });
+  }
+
+  isEventFavorised(id: string): Observable<boolean> {
+    const url = `${this.apiUrl}/${id}/is-favorised`;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.get<{ isFavorised: boolean }>(url, { headers }).pipe(
+      map((response) => response.isFavorised),
+      catchError(() => of(false))
+    );
+  }
+
+  addFavorite(id: string): Observable<any> {
+    const favoriteUrl = `${this.apiUrl}/${id}/favorite`;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.post(favoriteUrl, {}, { headers });
   }
 }

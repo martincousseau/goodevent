@@ -63,32 +63,40 @@ async function getEventsByUserId(userId) {
   }
 }
 
-async function addFavoriteEvent(req, res) {
+const addFavoriteEvent = async (req, res) => {
+  const eventId = req.params.id;
   const user = req.user;
-  const favorite_event_id = req.params.id;
 
   try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    // Vérifie si l'événement est déjà dans les favoris
     const existingFavorite = await Favorite.findOne({
+      favorite_event_id: eventId,
       favorite_user_id: user._id,
-      favorite_event_id,
     });
 
     if (existingFavorite) {
-      await Favorite.deleteOne({ _id: existingFavorite._id });
-      return res.status(200).json({ message: "Favorite removed" });
+      // Si déjà favori, le retirer
+      await Favorite.findByIdAndDelete(existingFavorite._id);
+      return res.json({ message: "Event removed from favorites successfully" });
     } else {
+      // Sinon, l'ajouter aux favoris
       const favorite = new Favorite({
+        favorite_event_id: eventId,
         favorite_user_id: user._id,
-        favorite_event_id,
       });
       await favorite.save();
-      return res.status(201).json({ message: "Favorite added" });
+      return res.json({ message: "Event added to favorites successfully" });
     }
   } catch (error) {
-    console.error("Error adding/removing favorite:", error);
+    console.error("Error adding favorite event:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
 async function getFavoriteEvents(req) {
   const user = req.user;

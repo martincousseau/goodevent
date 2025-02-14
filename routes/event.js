@@ -50,4 +50,22 @@ router.get("/", getAllEvents);
 
 router.get("/:id", getEventById);
 
+router.get("/:id/is-favorised", authenticateJWT, async (req, res) => {
+  const user = req.user;
+  const eventId = req.params.id;
+  console.log("user", user);
+  console.log("eventId", eventId);
+
+  try {
+    const isLiked = await Favorite.findOne({
+      favorite_event_id: eventId,
+      favorite_user_id: user._id,
+    });
+    res.json({ isLiked: !!isLiked });
+  } catch (error) {
+    console.error("Error checking if event is liked:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;

@@ -13,6 +13,7 @@ router.get("/", authenticateJWT, async (req, res) => {
     const user = req.user;
     const user_events = await getEventsByUserId(user._id);
     const user_fav_events = await getFavoriteEvents(req);
+    console.log("user_fav_events : ", user_fav_events);
 
     res.status(200).json({
       title: "My Account",
