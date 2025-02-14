@@ -7,7 +7,7 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  events: any[] = []; // Remplace par ton tableau d'événements
+  events: any[] = [];
   filteredEvents: any[] = [];
   themeFilter: string = 'all';
   sortFilter: string = 'all';
@@ -51,7 +51,6 @@ export class HomeComponent implements OnInit {
   }
 
   trackById(index: number, event: any): number {
-    // Correct type for event
-    return event._id; // Access the _id property (or event.id if that's what your data has)
+    return event._id;
   }
 }

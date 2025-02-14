@@ -49,3 +49,10 @@
   height: 20px;
   fill: #ffffff;
 }
+
+.search-bar-separator {
+  width: 1px;
+  height: 20px;
+  background-color: #ddd;
+  margin: 0 10px;
+}

@@ -14,12 +14,6 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // Fonction pour afficher/masquer le mot de passe
-  togglePassword(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-  // Fonction de soumission du formulaire
   onSubmit(): void {
     if (!this.email || !this.password) {
       alert('Veuillez entrer un email et un mot de passe.');
