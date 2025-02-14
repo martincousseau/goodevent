@@ -5,22 +5,8 @@
   <p>Ma date de naissance : {{ user.birth_date }}</p>
 
   <h3>Mes évènements créés</h3>
-  <div *ngIf="user_events && user_events.length > 0" class="event-list">
-    <div *ngFor="let event of user_events">
-      <app-event [eventId]="event._id" [event]="event"></app-event>
-    </div>
-  </div>
-  <p *ngIf="user_events && user_events.length === 0">
-    Aucun événement créé pour le moment.
-  </p>
+  <app-events-list [events]="user_events"></app-events-list>
 
   <h3>Mes évènements favoris</h3>
-  <div *ngIf="user_fav_events && user_fav_events.length > 0" class="event-list">
-    <div *ngFor="let fav_event of user_fav_events">
-      <app-event [eventId]="fav_event._id" [event]="fav_event"></app-event>
-    </div>
-  </div>
-  <p *ngIf="user_fav_events && user_fav_events.length === 0">
-    Aucun événement favori pour le moment.
-  </p>
+  <app-events-list [events]="user_fav_events"></app-events-list>
 </div>

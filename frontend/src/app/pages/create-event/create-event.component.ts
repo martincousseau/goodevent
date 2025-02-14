@@ -9,7 +9,7 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./create-event.component.css'],
 })
 export class CreateEventComponent {
-  event: EventInterface = {
+  event: any = {
     // Use 'any' type or create an interface
     name: '',
     theme: '',

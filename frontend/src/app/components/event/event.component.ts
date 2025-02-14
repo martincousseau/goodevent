@@ -1,5 +1,4 @@
-// event.component.ts
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { EventInterface } from 'src/app/services/event.interface';
 import { EventService } from 'src/app/services/event.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,6 +12,7 @@ import { AccountService } from 'src/app/services/account.service';
 export class EventComponent implements OnInit {
   @Input() eventId: string | undefined;
   @Input() event!: EventInterface;
+  @Output() eventDeleted = new EventEmitter<string>();
 
   error: string | null = null;
   isLiked: boolean = false;
@@ -65,10 +65,10 @@ export class EventComponent implements OnInit {
     if (!this.authService.isAuthenticated()) {
       return;
     }
-    console.log('deleteEvent', this.eventId);
+
     this.eventService.deleteEvent(this.eventId!).subscribe({
       next: () => {
-        alert('Événement supprimé avec succès.');
+        this.eventDeleted.emit(this.eventId);
       },
       error: (err) => {
         alert(err.error.message);
