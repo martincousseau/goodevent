@@ -7,16 +7,6 @@ body {
   color: #333;
 }
 
-/* Style pour le menu */
-app-menu {
-  background-color: #060806;
-  padding: 15px;
-  color: white;
-  text-align: center;
-  font-size: 1.2em;
-}
-
-/* Style pour les informations utilisateur */
 .user-info {
   background: white;
   border-radius: 8px;
@@ -34,7 +24,6 @@ app-menu {
 
 .user-info h3 {
   color: #060806;
-  border-bottom: 2px solid #0b050a;
   padding-bottom: 5px;
 }
 
@@ -52,4 +41,45 @@ app-menu {
   flex: 1 1 calc(33.333% - 30px);
   box-sizing: border-box;
   padding: 15px;
+}
+
+/* Styles généraux pour la page */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.user-details {
+  background: white;
+  border-radius: 8px;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+}
+
+.user-details p {
+  margin: 10px 0;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.user-details p:first-of-type {
+  font-size: 1.5em;
+  color: #333;
+  font-weight: bold;
+}
+
+.user-details p:nth-of-type(2) {
+  font-size: 1.2em;
+  color: #777;
+}
+
+.user-details p:last-of-type {
+  font-size: 1em;
+  color: #999;
 }
