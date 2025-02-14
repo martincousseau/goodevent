@@ -8,13 +8,13 @@ const {
 } = require("../controllers/eventController");
 const { authenticateJWT } = require("../controllers/authController");
 const Event = require("../models/Event");
+const Favorite = require("../models/Favorite");
 
 router.post("/", authenticateJWT, createEvent);
 
 router.post("/:id/favorite", authenticateJWT, addFavoriteEvent);
 
 router.put("/:id", authenticateJWT, async (req, res) => {
-  console.log("PUT /api/event/:id");
   const user = req.user;
   const eventId = req.params.id;
   const { name, event_date, price, theme, image_url } = req.body;
@@ -53,8 +53,6 @@ router.get("/:id", getEventById);
 router.get("/:id/is-favorised", authenticateJWT, async (req, res) => {
   const user = req.user;
   const eventId = req.params.id;
-  console.log("user", user);
-  console.log("eventId", eventId);
 
   try {
     const isLiked = await Favorite.findOne({

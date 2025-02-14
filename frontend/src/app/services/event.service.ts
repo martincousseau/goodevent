@@ -1,4 +1,4 @@
-// FRONT (event.service.ts)
+// event.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
@@ -8,22 +8,18 @@ import { catchError, map, Observable, of } from 'rxjs';
 })
 export class EventService {
   private apiUrl = 'http://localhost:3000/api/event';
-  // TODO : créer un service/hook pour récupérer le token
-  token = localStorage.getItem('token');
+  private token = localStorage.getItem('token');
 
   constructor(private http: HttpClient) {}
 
   createEvent(event: any): Observable<any> {
-    console.log('Token sent:', this.token);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
-
     return this.http.post<any>(this.apiUrl, event, { headers });
   }
 
   getEvents(): Observable<any[]> {
-    console.log('getEvents');
     return this.http.get<any[]>(this.apiUrl);
   }
 
@@ -35,9 +31,6 @@ export class EventService {
   }
 
   editEvent(id: string, event: any): Observable<any> {
-    console.log('editEvent - event.service.ts');
-    console.log('Token sent:', this.token);
-    console.log('event sent:', event);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
@@ -55,7 +48,7 @@ export class EventService {
     );
   }
 
-  addFavorite(id: string): Observable<any> {
+  toggleFavorite(id: string): Observable<any> {
     const favoriteUrl = `${this.apiUrl}/${id}/favorite`;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,

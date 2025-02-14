@@ -73,18 +73,15 @@ const addFavoriteEvent = async (req, res) => {
       return res.status(404).json({ message: "Event not found" });
     }
 
-    // Vérifie si l'événement est déjà dans les favoris
     const existingFavorite = await Favorite.findOne({
       favorite_event_id: eventId,
       favorite_user_id: user._id,
     });
 
     if (existingFavorite) {
-      // Si déjà favori, le retirer
       await Favorite.findByIdAndDelete(existingFavorite._id);
       return res.json({ message: "Event removed from favorites successfully" });
     } else {
-      // Sinon, l'ajouter aux favoris
       const favorite = new Favorite({
         favorite_event_id: eventId,
         favorite_user_id: user._id,
