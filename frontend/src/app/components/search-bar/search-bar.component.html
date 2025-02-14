@@ -1,37 +1,20 @@
 <div class="search-bar">
-  <div class="search-bar__item">
-    <span class="search-bar__label">Thème</span>
-    <select
-      name="theme"
-      [(ngModel)]="theme"
-      id="theme"
-      class="filter-select"
-      (change)="search()"
-    >
-      <option value="all">Tous les thèmes</option>
-      <option value="Music">Musique</option>
-      <option value="Sports">Sports</option>
-      <option value="Art">Art</option>
-    </select>
-  </div>
+  <select [(ngModel)]="theme" (change)="search()">
+    <option value="all">Thème</option>
+    <option value="Music">Musique</option>
+    <option value="Sports">Sports</option>
+    <option value="Art">Art</option>
+  </select>
+
   <div class="search-bar__separator"></div>
-  <div class="search-bar__item">
-    <span class="search-bar__label">Trier par</span>
-    <select
-      name="sort"
-      [(ngModel)]="sort"
-      id="sort"
-      class="filter-select"
-      (change)="search()"
-    >
-      <option value="">Trier par</option>
-      <option value="date">Date</option>
-      <option value="price">Prix</option>
-    </select>
-  </div>
+
+  <select [(ngModel)]="sort" (change)="search()">
+    <option value="all">Trier</option>
+    <option value="date">Date</option>
+    <option value="price">Prix</option>
+  </select>
+
   <div class="search-bar__separator"></div>
-  <button (click)="search()" class="search-bar__button">🔍</button>
-  <button (click)="resetFilter()" class="search-bar__button">
-    Réinitialiser
-  </button>
+
+  <button (click)="resetFilter()">Réinitialiser</button>
 </div>

@@ -6,7 +6,10 @@
 <div class="carousel-container">
   <!-- <button class="carousel-btn left" (click)="scrollLeft()">&#8249;</button> -->
   <div #carousel class="event-carousel">
-    <div *ngFor="let event of events; trackBy: trackById" class="event-item">
+    <div
+      *ngFor="let event of filteredEvents; trackBy: trackById"
+      class="event-item"
+    >
       <app-event [eventId]="event._id" [event]="event"></app-event>
     </div>
   </div>

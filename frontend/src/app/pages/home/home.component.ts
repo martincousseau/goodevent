@@ -7,10 +7,10 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  events: any[] = [];
+  events: any[] = []; // Remplace par ton tableau d'événements
   filteredEvents: any[] = [];
-  filter: string = 'all';
-  sort: string = '';
+  themeFilter: string = 'all';
+  sortFilter: string = 'all';
 
   constructor(private eventService: EventService) {}
 
@@ -22,26 +22,29 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onFilterChange(filterOptions: { theme: string; sort: string }) {
-    this.filter = filterOptions.theme;
-    this.sort = filterOptions.sort;
+  onFilterChange(filters: { theme: string; sort: string }) {
+    console.log('FiltersChange:', filters);
+    this.themeFilter = filters.theme;
+    this.sortFilter = filters.sort;
     this.applyFilters();
   }
 
-  applyFilters(): void {
-    let filtered = [...this.events]; // Create a copy to avoid modifying original array
+  applyFilters() {
+    let filtered = this.events;
+    console.log('initial apply filtered:', filtered);
 
-    if (this.filter !== 'all') {
-      filtered = filtered.filter((event) => event.theme === this.filter);
+    if (this.themeFilter !== 'all') {
+      filtered = filtered.filter((event) => event.theme === this.themeFilter);
     }
 
-    if (this.sort === 'date') {
-      filtered.sort(
-        (a, b) =>
-          new Date(a.event_date).getTime() - new Date(b.event_date).getTime()
-      );
-    } else if (this.sort === 'price') {
-      filtered.sort((a, b) => a.price - b.price);
+    if (this.sortFilter !== 'all') {
+      filtered = filtered.sort((a, b) => {
+        if (this.sortFilter === 'asc') {
+          return a.name.localeCompare(b.name);
+        } else {
+          return b.name.localeCompare(a.name);
+        }
+      });
     }
 
     this.filteredEvents = filtered;

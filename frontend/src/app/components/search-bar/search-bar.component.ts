@@ -17,7 +17,7 @@ export class SearchBarComponent {
 
   resetFilter() {
     this.theme = 'all';
-    this.sort = '';
+    this.sort = 'all';
     this.search();
   }
 }
