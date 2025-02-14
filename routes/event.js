@@ -79,7 +79,7 @@ router.delete("/:id", authenticateJWT, async (req, res) => {
     if (event.creator_id.toString() !== user._id.toString()) {
       return res.status(403).json({
         message:
-          "You are not authorized to delete this event. Only the creator can delete it.",
+          "Vous n'êtes pas autorisé à supprimer cet événement. Vous devez être le créateur de l'événement.",
       });
     }
 
