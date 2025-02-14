@@ -22,16 +22,10 @@ export class LoginComponent {
 
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
-        console.log('Réponse complète reçue :', response);
-
         if (response.token) {
-          console.log('Authentification réussie:', response);
-          console.log('response.token', response.token);
-
           this.authService.saveToken(response.token);
           this.router.navigate(['/']);
         } else {
-          console.log('Pas de token');
           alert('Authentification échouée, veuillez réessayer.');
         }
       },

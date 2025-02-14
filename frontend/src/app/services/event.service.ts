@@ -56,7 +56,6 @@ export class EventService {
   }
 
   deleteEvent(id: string): Observable<any> {
-    console.log('deleteEvent', id);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });

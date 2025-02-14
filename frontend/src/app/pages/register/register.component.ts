@@ -19,8 +19,6 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('registerForm : ', this.registerForm);
-    // Initialisation du formulaire avec les champs et leurs validations
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       first_name: ['', Validators.required],
@@ -36,7 +34,6 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
 
-  // Soumission du formulaire
   onSubmit() {
     this.submitted = true;
 
@@ -45,7 +42,6 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    // Envoi des données au backend via le service
     this.authService.register(this.registerForm.value).subscribe(
       (response: any) => {
         console.log('Inscription réussie', response);

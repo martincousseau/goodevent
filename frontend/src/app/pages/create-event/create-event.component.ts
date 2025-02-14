@@ -10,7 +10,6 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class CreateEventComponent {
   event: any = {
-    // Use 'any' type or create an interface
     name: '',
     theme: '',
     price: null,
@@ -21,19 +20,15 @@ export class CreateEventComponent {
   constructor(private eventService: EventService, private router: Router) {}
 
   onSubmit() {
-    console.log('onSubmit createEvent:', this.event);
     this.eventService.createEvent(this.event).subscribe({
       next: (response) => {
-        console.log('Event created successfully:', response);
         this.router.navigate(['/']);
       },
       error: (err) => {
-        console.error('Error creating event:', err); // Log the full error object
         if (err.error && err.error.message) {
-          // Check if error.error and error.error.message exist
-          this.error = err.error.message; // Display backend error message
+          this.error = err.error.message;
         } else {
-          this.error = 'An error occurred during event creation.'; // Generic error message
+          this.error = 'An error occurred during event creation.';
         }
       },
     });

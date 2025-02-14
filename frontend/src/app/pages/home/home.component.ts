@@ -17,13 +17,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.eventService.getEvents().subscribe((data) => {
       this.events = data;
-      console.log('Events:', this.events);
       this.applyFilters();
     });
   }
 
   onFilterChange(filters: { theme: string; sort: string }) {
-    console.log('FiltersChange:', filters);
     this.themeFilter = filters.theme;
     this.sortFilter = filters.sort;
     this.applyFilters();
@@ -31,7 +29,6 @@ export class HomeComponent implements OnInit {
 
   applyFilters() {
     let filtered = this.events;
-    console.log('initial apply filtered:', filtered);
 
     if (this.themeFilter !== 'all') {
       filtered = filtered.filter((event) => event.theme === this.themeFilter);

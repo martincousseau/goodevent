@@ -47,12 +47,9 @@ export class EditEventComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('onSubmit - EditEventComponent');
-    console.log('Event:', this.event);
     if (this.eventId) {
       this.eventService.editEvent(this.eventId, this.event).subscribe({
         next: (response) => {
-          console.log('Event updated:', response);
           this.router.navigate(['/']);
         },
         error: (err) => {

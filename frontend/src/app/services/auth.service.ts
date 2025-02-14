@@ -11,13 +11,10 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
-    console.log('inside login');
     return this.http.post(`${this.apiUrl}/login`, { email, password });
   }
 
   register(userData: any): Observable<any> {
-    console.log('userData:', userData);
-    console.log('apiUrl', this.apiUrl);
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
 
@@ -30,7 +27,6 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    console.log('inside isAuthenticated :', !!this.getToken());
     return !!this.getToken();
   }
 
