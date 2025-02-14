@@ -47,9 +47,9 @@ router.put("/:id", authenticateJWT, async (req, res) => {
   }
 });
 
-router.get("/", getAllEvents);
+router.get("/", authenticateJWT, getAllEvents);
 
-router.get("/:id", getEventById);
+router.get("/:id", authenticateJWT, getEventById);
 
 router.get("/:id/is-favorised", authenticateJWT, async (req, res) => {
   const user = req.user;

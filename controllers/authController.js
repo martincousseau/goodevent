@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-// Clé secrète utilisée pour signer le JWT
 const JWT_SECRET = "secretstory";
 
 const authenticateJWT = async (req, res, next) => {
@@ -14,26 +13,46 @@ const authenticateJWT = async (req, res, next) => {
 
     jwt.verify(token, JWT_SECRET, async (err, user) => {
       if (err) {
-        console.error("JWT Verification Error:", err); // Log the error!
-        return res.status(403).json({ message: "Invalid token" }); // Send JSON error
+        console.error("JWT Verification Error:", err);
+
+        if (err.name === "TokenExpiredError") {
+          return handleTokenExpired(req, res);
+        }
+
+        return res.status(403).json({ message: "Invalid token" });
       }
 
       try {
-        const foundUser = await User.findById(user.userId); // Correct user ID field
+        const foundUser = await User.findById(user.userId);
         if (!foundUser) {
-          return res.status(401).json({ message: "User not found" }); // Send JSON error
+          return res.status(401).json({ message: "User not found" });
         }
-        req.user = foundUser; // Set req.user correctly
+        req.user = foundUser;
         next();
       } catch (error) {
         console.error("Error finding user:", error);
-        return res.status(500).json({ message: "Internal server error" }); // Send JSON error
+        return res.status(500).json({ message: "Internal server error" });
       }
     });
   } else {
     return res.status(401).json({ message: "No token provided" });
   }
 };
+
+function handleTokenExpired(req, res) {
+  // Déconnecter l'utilisateur ou rediriger vers la page de connexion
+  if (req.user) {
+    req.logout(() => {
+      res
+        .status(401)
+        .json({ message: "Session expirée, connectez-vous à nouveau." });
+    });
+  } else {
+    res
+      .status(401)
+      .json({ message: "Session expirée, connectez-vous à nouveau." });
+  }
+}
 
 async function register(req, res) {
   console.log("inside register");
@@ -50,7 +69,6 @@ async function register(req, res) {
       birth_date,
     });
     await user.save();
-    // Envoie d'une réponse JSON
     res.status(201).json({
       success: true,
       message: "Utilisateur inscrit avec succès",
@@ -86,7 +104,6 @@ async function login(req, res) {
         .json({ error: "Email ou mot de passe incorrect." });
     }
 
-    // Créer un token JWT
     const token = jwt.sign(
       { userId: user._id, email: user.email },
       JWT_SECRET,
