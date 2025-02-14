@@ -1,0 +1,108 @@
+/* Style global */
+.event-details {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 40px auto;
+  transition: transform 0.2s ease-in-out;
+  margin-top: 15rem;
+}
+
+.event-details:hover {
+  transform: translateY(-2px);
+}
+
+/* En-tête de l'événement */
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+/* Titre */
+.event-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* Bouton favori */
+.fav-event {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.fav-event:hover {
+  transform: scale(1.1);
+}
+
+.heart {
+  width: 24px;
+  height: 24px;
+  fill: #bdc3c7;
+  transition: fill 0.3s ease, transform 0.2s ease;
+}
+
+.heart.liked {
+  fill: #e63946;
+  transform: scale(1.2);
+}
+
+/* Informations de l'événement */
+.event-info {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.event-info p {
+  margin-bottom: 10px;
+}
+
+/* Pied de page */
+.event-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Boutons */
+.btn {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Bouton Modifier */
+.modifier-event {
+  background-color: #93cff7;
+  color: white;
+}
+
+.modifier-event:hover {
+  background-color: #7abbe7;
+  transform: scale(1.05);
+}
+
+/* Bouton Supprimer */
+.supprimer-event {
+  background-color: #fe9694;
+  color: white;
+}
+
+.supprimer-event:hover {
+  background-color: #f47876;
+  transform: scale(1.05);
+}

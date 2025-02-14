@@ -9,19 +9,21 @@ import { EditEventComponent } from './pages/edit-event/edit-event.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
 import { EditEventGuard } from './guards/edit-event.guard';
+import { EventDetailsComponent } from './pages/event-details/event-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'account', component: AccountComponent },
-  { path: 'event/:id', component: EventComponent },
+  // { path: 'event/:id', component: EventComponent },
   {
     path: 'edit-event/:id',
     component: EditEventComponent,
     canActivate: [EditEventGuard],
   },
   { path: 'create-event', component: CreateEventComponent },
+  { path: 'event/:id', component: EventDetailsComponent },
 ];
 
 @NgModule({

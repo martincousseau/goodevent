@@ -17,6 +17,7 @@ import { CreateEventComponent } from './pages/create-event/create-event.componen
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { EventsListComponent } from './events-list/events-list.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { EventDetailsComponent } from './pages/event-details/event-details.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     CreateEventComponent,
     SearchBarComponent,
     EventsListComponent,
+    EventDetailsComponent,
   ],
   imports: [
     BrowserModule,
