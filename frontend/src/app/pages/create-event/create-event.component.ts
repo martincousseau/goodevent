@@ -27,6 +27,7 @@ export class CreateEventComponent {
       error: (err) => {
         if (err.error && err.error.message) {
           this.error = err.error.message;
+          alert(err.error.message);
         } else {
           this.error = 'An error occurred during event creation.';
         }

@@ -1,8 +1,8 @@
 <app-menu />
 <div class="user-info">
-  <p>{{ user.first_name }} {{ user.last_name }} - {{ user.email }}</p>
-  <p>Mon rôle : {{ user.role }}</p>
-  <p>Ma date de naissance : {{ user.birth_date }}</p>
+  <p>{{ user?.first_name }} {{ user?.last_name }} - {{ user?.email }}</p>
+  <p>Mon rôle : {{ user?.role }}</p>
+  <p>Ma date de naissance : {{ user?.birth_date }}</p>
 
   <h3>Mes évènements créés</h3>
   <app-events-list [events]="user_events"></app-events-list>
