@@ -8,14 +8,15 @@ import { Observable } from 'rxjs';
 })
 export class EventService {
   private apiUrl = 'http://localhost:3000/api/event';
+  // TODO : créer un service/hook pour récupérer le token
+  token = localStorage.getItem('token');
 
   constructor(private http: HttpClient) {}
 
   createEvent(event: any): Observable<any> {
-    const token = localStorage.getItem('token');
-    console.log('Token sent:', token);
+    console.log('Token sent:', this.token);
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${this.token}`,
     });
 
     return this.http.post<any>(this.apiUrl, event, { headers });
@@ -33,12 +34,21 @@ export class EventService {
   }
 
   addFavorite(eventId: string): Observable<any> {
-    const favoriteUrl = `http://localhost:3000/api/favorise-event/${eventId}`; // URL for adding favorites
-    return this.http.post(favoriteUrl, {}); // POST request, empty body
+    const favoriteUrl = `http://localhost:3000/api/favorise-event/${eventId}`;
+    return this.http.post(favoriteUrl, {});
   }
 
-  editEvent(eventId: string, event: any): Observable<any> {
-    const editUrl = `http://localhost:3000/api/edit-event/${eventId}`;
-    return this.http.put(editUrl, event); // PUT request for updates
+  getEventForEdit(id: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.get<any>(`${this.apiUrl}/${id}/edit`, { headers });
+  }
+
+  editEvent(id: string, event: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.put<any>(`${this.apiUrl}/${id}`, event, { headers });
   }
 }

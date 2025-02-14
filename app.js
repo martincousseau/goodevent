@@ -51,8 +51,8 @@ const accountRouter = require("./routes/account.js");
 const loginRouter = require("./routes/login.js");
 const logoutRouter = require("./routes/logout.js");
 const eventRouter = require("./routes/event.js");
-const editEventRouter = require("./routes/edit-event.js");
-const favoriseEventRouter = require("./routes/favorise-event");
+const editEventRouter = require("./routes/event.js");
+const favoriseEventRouter = require("./routes/event.js");
 
 // Routes API
 app.use("/api", indexRouter);

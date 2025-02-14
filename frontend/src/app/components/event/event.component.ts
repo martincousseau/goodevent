@@ -13,12 +13,6 @@ export class EventComponent implements OnInit {
   @Input()
   event!: EventInterface;
 
-  // event: EventInterface = {
-  //   name: '',
-  //   theme: '',
-  //   price: null,
-  //   event_date: '',
-  // };
   error: string | null = null;
   isLiked: boolean = false; // Initialize isLiked
 
@@ -28,7 +22,6 @@ export class EventComponent implements OnInit {
   ) {} // Inject AuthService
 
   ngOnInit(): void {
-    console.log('Event ID:', this.eventId);
     if (this.eventId) {
       this.getEventDetails(this.eventId);
     }
@@ -50,12 +43,6 @@ export class EventComponent implements OnInit {
   }
 
   checkIfLiked() {
-    // Call your backend API to check if the current user has favorited this event
-    // Example:
-    // this.eventService.isFavorite(this.eventId).subscribe(isFavorite => {
-    //   this.isLiked = isFavorite;
-    // });
-    // For now, just a placeholder:
     this.isLiked = Math.random() < 0.5; // Randomly sets isLiked for demonstration
   }
 

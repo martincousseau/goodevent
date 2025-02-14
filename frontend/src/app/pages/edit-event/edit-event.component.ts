@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router'; // Import ActivatedRoute
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
 
 @Component({
@@ -10,10 +10,12 @@ import { EventService } from 'src/app/services/event.service';
 export class EditEventComponent implements OnInit {
   eventId: string | null = null;
   event: any = {
+    // Initialize image_url
     name: '',
     theme: '',
     price: null,
     event_date: '',
+    image_url: '',
   };
   error: string | null = null;
 
@@ -25,7 +27,7 @@ export class EditEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.eventId = params.get('id'); // Get event ID from URL parameter
+      this.eventId = params.get('id');
       if (this.eventId) {
         this.loadEventDetails(this.eventId);
       }
@@ -33,11 +35,13 @@ export class EditEventComponent implements OnInit {
   }
 
   loadEventDetails(eventId: string) {
-    this.eventService.getEventById(eventId).subscribe({
+    this.eventService.getEventForEdit(eventId).subscribe({
+      // Use the new method
       next: (event) => {
         this.event = event;
       },
       error: (err) => {
+        console.error('Error loading event:', err);
         this.error = 'Error loading event details.';
       },
     });
@@ -47,9 +51,11 @@ export class EditEventComponent implements OnInit {
     if (this.eventId) {
       this.eventService.editEvent(this.eventId, this.event).subscribe({
         next: (response) => {
-          this.router.navigate(['/home']); // Redirect after successful edit
+          console.log('Event updated:', response); // Log the response
+          this.router.navigate(['/home']);
         },
         error: (err) => {
+          console.error('Error updating event:', err);
           this.error = 'Error updating event.';
         },
       });
