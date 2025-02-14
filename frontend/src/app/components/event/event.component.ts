@@ -60,4 +60,19 @@ export class EventComponent implements OnInit {
       },
     });
   }
+
+  deleteEvent(): void {
+    if (!this.authService.isAuthenticated()) {
+      return;
+    }
+    console.log('deleteEvent', this.eventId);
+    this.eventService.deleteEvent(this.eventId!).subscribe({
+      next: () => {
+        alert('Événement supprimé avec succès.');
+      },
+      error: (err) => {
+        alert(err.error.message);
+      },
+    });
+  }
 }

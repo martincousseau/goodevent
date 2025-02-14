@@ -9,7 +9,7 @@
   margin: auto;
   margin-top: 40px;
   margin-bottom: 10px;
-  height: 220px;
+  height: 225px;
 }
 
 .event-header {
@@ -56,6 +56,25 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.supprimer-event {
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #fe9694;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.event-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1.5rem;
 }
 
 /* .fav-event {

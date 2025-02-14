@@ -66,4 +66,30 @@ router.get("/:id/is-favorised", authenticateJWT, async (req, res) => {
   }
 });
 
+router.delete("/:id", authenticateJWT, async (req, res) => {
+  const user = req.user;
+  const eventId = req.params.id;
+
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    if (event.creator_id.toString() !== user._id.toString()) {
+      return res.status(403).json({
+        message:
+          "You are not authorized to delete this event. Only the creator can delete it.",
+      });
+    }
+
+    await Event.findByIdAndDelete(eventId);
+
+    res.json({ message: "Event deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting event:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;

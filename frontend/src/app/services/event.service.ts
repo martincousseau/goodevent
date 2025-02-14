@@ -54,4 +54,12 @@ export class EventService {
     });
     return this.http.post(favoriteUrl, {}, { headers });
   }
+
+  deleteEvent(id: string): Observable<any> {
+    console.log('deleteEvent', id);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+  }
 }
