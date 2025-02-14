@@ -54,7 +54,7 @@ export class EditEventComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error updating event:', err);
-          this.error = 'Error updating event.';
+          alert(err.error.message);
         },
       });
     }
