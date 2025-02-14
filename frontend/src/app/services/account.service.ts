@@ -16,4 +16,13 @@ export class AccountService {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
+
+  getUserId(): string | null {
+    const user = localStorage.getItem('user');
+    if (user) {
+      const userObject = JSON.parse(user);
+      return userObject._id || null;
+    }
+    return null;
+  }
 }

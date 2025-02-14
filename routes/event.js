@@ -26,9 +26,10 @@ router.put("/:id", authenticateJWT, async (req, res) => {
     }
 
     if (event.creator_id.toString() !== user._id.toString()) {
-      return res
-        .status(403)
-        .json({ message: "You are not authorized to edit this event." });
+      return res.status(403).json({
+        message:
+          "Vous n'êtes pas autorisé à supprimer cet événement. Vous devez être le créateur de l'événement.",
+      });
     }
 
     event.name = name;

@@ -21,7 +21,6 @@ export class EventService {
   getEvents(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
-
   getEventForEdit(id: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
