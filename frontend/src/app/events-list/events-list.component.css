@@ -1,0 +1,14 @@
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.event-list div {
+  background: #f5f5f5;
+  border-radius: 5px;
+  flex: 1 1 calc(33.333% - 30px);
+  box-sizing: border-box;
+  padding: 15px;
+}

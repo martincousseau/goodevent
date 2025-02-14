@@ -1,42 +1,14 @@
 <app-menu />
 <div class="user-info">
-  <p>{{ user.first_name }} {{ user.last_name }} - {{ user.email }}</p>
-  <p>Mon rôle : {{ user.role }}</p>
-  <p>Ma date de naissance : {{ user.birth_date }}</p>
-
-  <h3>Mes évènements créés :</h3>
-  <div *ngIf="user_events && user_events.length > 0" class="event-list">
-    <div *ngFor="let event of user_events" class="event-card">
-      <div class="event-card-header">{{ event.name }}</div>
-      <div class="event-card-details">
-        <p>Date : {{ event.event_date }}</p>
-        <p>Prix : {{ event.price }}€</p>
-        <p>Thème : {{ event.theme }}</p>
-      </div>
-      <div class="event-card-footer">
-        <a [href]="'/edit-event/' + event._id" class="btn">Modifier</a>
-      </div>
-    </div>
+  <div class="user-details">
+    <p>{{ user?.first_name }} {{ user?.last_name }} - {{ user?.email }}</p>
+    <p>Mon rôle : {{ user?.role }}</p>
+    <p>Ma date de naissance : {{ user?.birth_date }}</p>
   </div>
-  <p *ngIf="user_events && user_events.length === 0">
-    Aucun événement créé pour le moment.
-  </p>
 
-  <h3>Mes évènements favoris :</h3>
-  <div *ngIf="user_fav_events && user_fav_events.length > 0" class="event-list">
-    <div *ngFor="let fav_event of user_fav_events" class="event-card">
-      <div class="event-card-header">{{ fav_event.name }}</div>
-      <div class="event-card-details">
-        <p>Date : {{ fav_event.event_date }}</p>
-        <p>Prix : {{ fav_event.price }}€</p>
-        <p>Thème : {{ fav_event.theme }}</p>
-      </div>
-      <div class="event-card-footer">
-        <a [href]="'/edit-event/' + fav_event._id" class="btn">Modifier</a>
-      </div>
-    </div>
-  </div>
-  <p *ngIf="user_fav_events && user_fav_events.length === 0">
-    Aucun événement favori pour le moment.
-  </p>
+  <h3>Mes évènements créés</h3>
+  <app-events-list [events]="user_events"></app-events-list>
+
+  <h3>Mes évènements favoris</h3>
+  <app-events-list [events]="user_fav_events"></app-events-list>
 </div>

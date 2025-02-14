@@ -1,126 +1,58 @@
 /* search-bar.component.css */
-
 .search-bar {
-  margin-top: 5rem;
   display: flex;
   align-items: center;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  border-radius: 24px; /* Rounded corners */
-  padding: 16px 24px; /* Comfortable padding */
-  border: 1px solid #e0e0e0; /* Light gray border */
-  width: fit-content; /* Adjust width as needed */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.search-bar__item {
-  display: flex;
-  flex-direction: column;
-  margin-right: 24px; /* Spacing between elements */
-}
-
-.search-bar__label {
-  font-size: 12px;
-  font-weight: 600;
-  color: #4a4a4a; /* Darker gray for labels */
-  margin-bottom: 4px;
-}
-
-.search-bar__input {
-  font-size: 14px !important;
-  color: #717171; /* Medium gray for input text */
-  border: none !important;
-  outline: none; /* Remove default outline on focus */
-  padding: 0 !important; /* Remove default input padding */
-  width: auto; /* Adjust width as needed */
-  background: transparent; /* Make input background transparent */
-}
-
-.search-bar__separator {
-  height: 24px;
-  border-left: 1px solid #e0e0e0;
-  margin: 0 16px;
-}
-
-.search-bar__button {
-  background-color: #ffffff; /* Airbnb-like pink/red */
-  color: white;
-  border: none;
-  border-radius: 50%; /* Circular button */
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on button */
-  cursor: pointer;
-  transition: background-color 0.2s ease; /* Smooth transition on hover */
-}
-
-.search-bar__button:hover {
-  background-color: #ffa8ef; /* Darker shade on hover */
-}
-
-.search-bar__button:focus {
-  outline: none;
-}
-
-/* Responsive adjustments (example) */
-@media (max-width: 768px) {
-  .search-bar {
-    flex-wrap: wrap; /* Wrap elements on smaller screens */
-    padding: 12px;
-  }
-
-  .search-bar__item {
-    margin: 8px 0; /* Adjust margin for wrapped items */
-    flex: 1 1 45%; /* Distribute space evenly (adjust as needed) */
-  }
-
-  .search-bar__separator {
-    display: none; /* Hide separators on smaller screens */
-  }
-}
-
-.filter-select {
-  appearance: none; /* Supprime le style natif du select */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: transparent; /* Fond transparent */
-  border: none; /* Supprime les bordures */
-  font-size: 16px;
-  color: #333; /* Texte plus foncé pour meilleure lisibilité */
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 8px; /* Coins arrondis */
-  outline: none; /* Supprime l'outline */
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #dddfe2;
+  border-radius: 30px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
-  position: relative;
+  max-width: 600px;
+  margin: 20px auto;
+  transition: box-shadow 0.3s ease;
+  margin-top: 5rem;
+  gap: 8px;
 }
 
-/* Ajout d'une flèche personnalisée */
-.filter-select::after {
-  content: "▼"; /* Petite flèche */
-  font-size: 14px;
-  color: #666;
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none; /* Ne pas interférer avec le clic */
+.search-bar:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Effet au survol et au focus */
-.filter-select:hover,
-.filter-select:focus {
-  background-color: #f5f5f5; /* Légère coloration */
+.search-bar select {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px !important;
 }
 
-/* Ajout d'un wrapper pour positionner la flèche */
-.search-bar__item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 150px; /* Largeur du select */
+.search-bar button {
+  background-color: #ff5a5f;
+  color: #ffffff;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #ff385c;
+}
+
+.search-bar button svg {
+  width: 20px;
+  height: 20px;
+  fill: #ffffff;
+}
+
+.search-bar-separator {
+  width: 1px;
+  height: 20px;
+  background-color: #ddd;
+  margin: 0 10px;
 }

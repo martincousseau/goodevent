@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { EventInterface } from 'src/app/services/event.interface';
 import { EventService } from 'src/app/services/event.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-event',
@@ -9,37 +11,68 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class EventComponent implements OnInit {
   @Input() eventId: string | undefined;
+  @Input() event!: EventInterface;
+  @Output() eventDeleted = new EventEmitter<string>();
 
-  event: EventInterface = {
-    name: '',
-    theme: '',
-    price: null,
-    event_date: '',
-  };
   error: string | null = null;
+  isLiked: boolean = false;
 
-  constructor(private eventService: EventService) {}
+  constructor(
+    private eventService: EventService,
+    private accountService: AccountService,
+    private authService: AuthService
+  ) {}
 
-  ngOnInit(): void {
-    if (this.eventId) {
-      this.getEventDetails(this.eventId);
-    }
+  ngOnInit() {
+    this.checkIfLiked();
   }
 
-  getEventDetails(eventId: string): void {
-    this.eventService.getEventById(eventId).subscribe(
-      (event) => {
-        this.event = event;
+  checkIfLiked() {
+    this.accountService.getUserData().subscribe({
+      next: (data) => {
+        const user_fav_events = data?.user_fav_events ?? [];
+        this.isLiked = user_fav_events.some(
+          (favEvent: { _id: string | undefined }) =>
+            favEvent._id === this.eventId
+        );
       },
-      (err) => {
-        this.error = "Impossible de récupérer l'événement.";
-      }
-    );
+      error: (error) => {
+        console.error(
+          'Erreur lors de la récupération des données utilisateur:',
+          error
+        );
+        alert('Erreur lors du chargement des données utilisateur.');
+      },
+    });
   }
-
-  isLiked = false;
 
   toggleFavorite(): void {
-    this.isLiked = !this.isLiked;
+    if (!this.authService.isAuthenticated()) {
+      return;
+    }
+
+    this.eventService.toggleFavorite(this.eventId!).subscribe({
+      next: () => {
+        this.isLiked = !this.isLiked;
+      },
+      error: (err) => {
+        this.error = err.message;
+      },
+    });
+  }
+
+  deleteEvent(): void {
+    if (!this.authService.isAuthenticated()) {
+      return;
+    }
+
+    this.eventService.deleteEvent(this.eventId!).subscribe({
+      next: () => {
+        this.eventDeleted.emit(this.eventId);
+      },
+      error: (err) => {
+        alert(err.error.message);
+      },
+    });
   }
 }

@@ -1,0 +1,10 @@
+<div *ngIf="events && events.length > 0" class="event-list">
+  <div *ngFor="let event of events">
+    <app-event
+      [eventId]="event._id"
+      [event]="event"
+      (eventDeleted)="onEventDeleted($event)"
+    ></app-event>
+  </div>
+</div>
+<p *ngIf="events && events.length === 0">Aucun événement pour le moment.</p>

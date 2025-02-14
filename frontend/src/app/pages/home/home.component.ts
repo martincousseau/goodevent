@@ -9,57 +9,45 @@ import { EventService } from 'src/app/services/event.service';
 export class HomeComponent implements OnInit {
   events: any[] = [];
   filteredEvents: any[] = [];
-  filter: string = 'all';
-  sort: string = '';
-  currentEventIndex: number = 0;
-  carouselTransform: string = 'translateX(0)';
-  @ViewChild('carousel') carousel!: ElementRef;
+  themeFilter: string = 'all';
+  sortFilter: string = 'all';
 
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
-    // Charger les événements au démarrage
     this.eventService.getEvents().subscribe((data) => {
       this.events = data;
-      this.filteredEvents = data;
+      this.applyFilters();
     });
-    console.log('filteredEvents', this.filteredEvents);
   }
 
-  trackById(index: number, event: { id: number }): number {
-    return event.id;
+  onFilterChange(filters: { theme: string; sort: string }) {
+    this.themeFilter = filters.theme;
+    this.sortFilter = filters.sort;
+    this.applyFilters();
   }
 
-  scrollLeft(): void {
-    this.carousel.nativeElement.scrollBy({ left: -250, behavior: 'smooth' });
-  }
-
-  scrollRight(): void {
-    this.carousel.nativeElement.scrollBy({ left: 250, behavior: 'smooth' });
-  }
-
-  applyFilters(): void {
-    // Appliquer le filtre
+  applyFilters() {
     let filtered = this.events;
 
-    if (this.filter !== 'all') {
-      filtered = filtered.filter((event) => event.theme === this.filter);
+    if (this.themeFilter !== 'all') {
+      filtered = filtered.filter((event) => event.theme === this.themeFilter);
     }
 
-    // Appliquer le tri
-    if (this.sort === 'date') {
-      filtered = filtered.sort(
-        (a, b) =>
-          new Date(a.event_date).getTime() - new Date(b.event_date).getTime()
-      );
-    } else if (this.sort === 'price') {
-      filtered = filtered.sort((a, b) => a.price - b.price);
+    if (this.sortFilter !== 'all') {
+      filtered = filtered.sort((a, b) => {
+        if (this.sortFilter === 'asc') {
+          return a.name.localeCompare(b.name);
+        } else {
+          return b.name.localeCompare(a.name);
+        }
+      });
     }
 
-    // Mettre à jour les événements filtrés
     this.filteredEvents = filtered;
+  }
 
-    // Réinitialiser la pagination du carrousel
-    this.currentEventIndex = 0;
+  trackById(index: number, event: any): number {
+    return event._id;
   }
 }

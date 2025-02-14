@@ -1,22 +1,8 @@
-<!-- Menu -->
 <app-menu />
 
-<app-search-bar></app-search-bar>
+<app-search-bar (filterChange)="onFilterChange($event)"></app-search-bar>
 
-<div class="carousel-container">
-  <!-- <button class="carousel-btn left" (click)="scrollLeft()">&#8249;</button> -->
-  <div #carousel class="event-carousel">
-    <div
-      *ngFor="let event of filteredEvents; trackBy: trackById"
-      class="event-item"
-    >
-      <app-event [eventId]="event.id"></app-event>
-    </div>
-  </div>
-  <!-- <button class="carousel-btn right" (click)="scrollRight()">&#8250;</button> -->
-</div>
-
-<!-- Message si aucun événement -->
-<p *ngIf="filteredEvents.length === 0" class="no-events">
-  Aucun événement disponible pour le moment.
-</p>
+<app-events-list
+  *ngIf="filteredEvents.length > 0"
+  [events]="filteredEvents"
+></app-events-list>

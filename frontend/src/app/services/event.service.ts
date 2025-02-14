@@ -1,77 +1,64 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = 'http://localhost:3000/event';
+  private apiUrl = 'http://localhost:3000/api/event';
+  private token = localStorage.getItem('token');
 
   constructor(private http: HttpClient) {}
-  // Mock des données d'événements
-  private events = [
-    {
-      id: '1',
-      name: 'Concert de Jazz',
-      theme: 'Music',
-      price: 25,
-      event_date: '2025-02-25T20:00:00',
-    },
-    {
-      id: '2',
-      name: 'Match de Football',
-      theme: 'Sports',
-      price: 15,
-      event_date: '2025-03-10T18:00:00',
-    },
-    {
-      id: '3',
-      name: 'Exposition Art Contemporain',
-      theme: 'Art',
-      price: 12,
-      event_date: '2025-03-15T10:00:00',
-    },
-    {
-      id: '4',
-      name: 'Festival de Musique Électronique',
-      theme: 'Music',
-      price: 40,
-      event_date: '2025-04-01T22:00:00',
-    },
-    {
-      id: '5',
-      name: 'Match de Basketball',
-      theme: 'Sports',
-      price: 20,
-      event_date: '2025-03-20T20:00:00',
-    },
-    {
-      id: '6',
-      name: 'Match de Basketball',
-      theme: 'Sports',
-      price: 20,
-      event_date: '2025-03-20T20:00:00',
-    },
-    {
-      id: '7',
-      name: 'Match de Basketball',
-      theme: 'Sports',
-      price: 20,
-      event_date: '2025-03-20T20:00:00',
-    },
-  ];
 
   createEvent(event: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, event);
-  }
-
-  getEventById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.post<any>(this.apiUrl, event, { headers });
   }
 
   getEvents(): Observable<any[]> {
-    // return this.http.get<any>(this.apiUrl);
-    return of(this.events);
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  getEventForEdit(id: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.get<any>(`${this.apiUrl}/${id}`, { headers });
+  }
+
+  editEvent(id: string, event: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.put<any>(`${this.apiUrl}/${id}`, event, { headers });
+  }
+
+  isEventFavorised(id: string): Observable<boolean> {
+    const url = `${this.apiUrl}/${id}/is-favorised`;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.get<{ isFavorised: boolean }>(url, { headers }).pipe(
+      map((response) => response.isFavorised),
+      catchError(() => of(false))
+    );
+  }
+
+  toggleFavorite(id: string): Observable<any> {
+    const favoriteUrl = `${this.apiUrl}/${id}/favorite`;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.post(favoriteUrl, {}, { headers });
+  }
+
+  deleteEvent(id: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
   }
 }

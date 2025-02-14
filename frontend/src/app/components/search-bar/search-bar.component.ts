@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search-bar',
@@ -6,14 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./search-bar.component.css'],
 })
 export class SearchBarComponent {
-  theme: string = '';
-  date: string = '';
-  filter: string = 'all';
+  theme: string = 'all';
+  sort: string = 'all';
+
+  @Output() filterChange = new EventEmitter<{ theme: string; sort: string }>();
 
   search() {
-    console.log({
-      destination: this.theme,
-      date: this.date,
-    });
+    this.filterChange.emit({ theme: this.theme, sort: this.sort });
+  }
+
+  resetFilter() {
+    this.theme = 'all';
+    this.sort = 'all';
+    this.search();
   }
 }

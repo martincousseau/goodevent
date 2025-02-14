@@ -14,12 +14,6 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // Fonction pour afficher/masquer le mot de passe
-  togglePassword(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-  // Fonction de soumission du formulaire
   onSubmit(): void {
     if (!this.email || !this.password) {
       alert('Veuillez entrer un email et un mot de passe.');
@@ -28,14 +22,10 @@ export class LoginComponent {
 
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
-        console.log('Réponse complète reçue :', response); // Vérification
-
         if (response.token) {
-          console.log('Authentification réussie:', response);
           this.authService.saveToken(response.token);
           this.router.navigate(['/']);
         } else {
-          console.log('Authentification échouée: pas de token');
           alert('Authentification échouée, veuillez réessayer.');
         }
       },

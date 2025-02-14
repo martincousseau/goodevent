@@ -2,47 +2,17 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { authenticateJWT } = require("../controllers/authController");
 const {
   getEventsByUserId,
   getFavoriteEvents,
 } = require("../controllers/eventController");
 
-const JWT_SECRET = "secretstory";
-
-// JWT Verification Middleware
-const authenticateJWT = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-
-    jwt.verify(token, JWT_SECRET, async (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-
-      try {
-        const foundUser = await User.findById(user.userId);
-        if (!foundUser) {
-          return res.sendStatus(401);
-        }
-        req.user = foundUser;
-        next();
-      } catch (error) {
-        console.error("Error finding user:", error);
-        return res.sendStatus(500);
-      }
-    });
-  } else {
-    res.sendStatus(401);
-  }
-};
-
 router.get("/", authenticateJWT, async (req, res) => {
   try {
     const user = req.user;
     const user_events = await getEventsByUserId(user._id);
-    const user_fav_events = await getFavoriteEvents(req); // Call the function
+    const user_fav_events = await getFavoriteEvents(req);
 
     res.status(200).json({
       title: "My Account",

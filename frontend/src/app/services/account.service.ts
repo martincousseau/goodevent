@@ -11,7 +11,7 @@ export class AccountService {
   constructor(private http: HttpClient) {}
 
   getUserData(): Observable<any> {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
     return this.http.get<any>(`${this.apiUrl}/account`, {
       headers: { Authorization: `Bearer ${token}` },
     });
