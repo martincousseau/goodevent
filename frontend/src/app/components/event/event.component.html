@@ -6,7 +6,7 @@
     <p>
       <strong>Date : </strong>{{ this.event.event_date | date : "dd/MM/yyyy" }}
     </p>
-    <button class="btn modifier-event" routerLink="/edit-event">
+    <button class="btn modifier-event" [routerLink]="['/edit-event', eventId]">
       Modifier
     </button>
     <button class="fav-event" (click)="toggleFavorite()">

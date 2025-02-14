@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service'; // Import AuthServi
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css'],
 })
-export class EventComponent implements OnInit {
+export class EventComponent {
   @Input() eventId: string | undefined;
   @Input()
   event!: EventInterface;
@@ -21,29 +21,8 @@ export class EventComponent implements OnInit {
     private authService: AuthService
   ) {} // Inject AuthService
 
-  ngOnInit(): void {
-    if (this.eventId) {
-      this.getEventDetails(this.eventId);
-    }
-  }
-
-  getEventDetails(eventId: string): void {
-    this.eventService.getEventById(eventId).subscribe({
-      next: (event) => {
-        this.event = event;
-        // Check if event is already in favorites (if user is logged in)
-        if (this.authService.isAuthenticated()) {
-          this.checkIfLiked();
-        }
-      },
-      error: (err) => {
-        this.error = "Impossible de récupérer l'événement.";
-      },
-    });
-  }
-
   checkIfLiked() {
-    this.isLiked = Math.random() < 0.5; // Randomly sets isLiked for demonstration
+    this.isLiked = Math.random() < 0.5;
   }
 
   toggleFavorite(): void {

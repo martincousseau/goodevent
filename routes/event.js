@@ -7,12 +7,14 @@ const {
   getAllEvents, // Make sure getAllEvents is imported
 } = require("../controllers/eventController");
 const { authenticateJWT } = require("../controllers/authController");
+const Event = require("../models/Event");
 
 router.post("/", authenticateJWT, createEvent);
 
 router.post("/:id/favorite", authenticateJWT, addFavoriteEvent);
 
 router.put("/:id", authenticateJWT, async (req, res) => {
+  console.log("PUT /api/event/:id");
   const user = req.user;
   const eventId = req.params.id;
   const { name, event_date, price, theme, image_url } = req.body;

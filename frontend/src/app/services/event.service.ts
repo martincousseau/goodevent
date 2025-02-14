@@ -22,12 +22,6 @@ export class EventService {
     return this.http.post<any>(this.apiUrl, event, { headers });
   }
 
-  getEventById(id: string): Observable<any> {
-    return this.http.get<any>(
-      `<span class="math-inline">\{this\.apiUrl\}/</span>{id}`
-    );
-  }
-
   getEvents(): Observable<any[]> {
     console.log('getEvents');
     return this.http.get<any[]>(this.apiUrl);
@@ -42,10 +36,13 @@ export class EventService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
-    return this.http.get<any>(`${this.apiUrl}/${id}/edit`, { headers });
+    return this.http.get<any>(`${this.apiUrl}/${id}`, { headers });
   }
 
   editEvent(id: string, event: any): Observable<any> {
+    console.log('editEvent - event.service.ts');
+    console.log('Token sent:', this.token);
+    console.log('event sent:', event);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });

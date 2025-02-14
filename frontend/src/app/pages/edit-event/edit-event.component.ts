@@ -36,7 +36,6 @@ export class EditEventComponent implements OnInit {
 
   loadEventDetails(eventId: string) {
     this.eventService.getEventForEdit(eventId).subscribe({
-      // Use the new method
       next: (event) => {
         this.event = event;
       },
@@ -48,11 +47,13 @@ export class EditEventComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('onSubmit - EditEventComponent');
+    console.log('Event:', this.event);
     if (this.eventId) {
       this.eventService.editEvent(this.eventId, this.event).subscribe({
         next: (response) => {
-          console.log('Event updated:', response); // Log the response
-          this.router.navigate(['/home']);
+          console.log('Event updated:', response);
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.error('Error updating event:', err);
